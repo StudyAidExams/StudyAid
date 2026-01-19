@@ -1,98 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>StudyAid – Professional Digital Services</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Professional Digital Services</title>
+
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; margin:0; }
-
-    /* Top Navigation */
-    nav {
-      background: #0a7cff;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      flex-wrap: wrap;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f7f9fc;
+      color: #333;
     }
-    nav a { color: #fff; text-decoration: none; margin: 5px 10px; font-weight: bold; }
-    nav a:hover { text-decoration: underline; }
 
-    header { background: #0a7cff; color: #fff; padding: 30px 20px; text-align: center; }
-    header h1 { margin-bottom: 5px; }
-    header p { font-size: 16px; opacity: 0.95; }
+    header {
+      background: #0b5ed7;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
 
-    section { padding: 30px 20px; max-width: 900px; margin: auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
-    .card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-    .card h3 { margin-top: 0; }
-    .btn { display: inline-block; margin: 10px 0; padding: 12px 22px; background: #ffcc00; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; text-align:center; }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
 
-    footer { background: #222; color: #ddd; text-align: center; padding: 20px; font-size: 14px; }
-    footer a { color: #ffcc00; text-decoration: none; }
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
 
-    @media(max-width:600px){ nav { flex-direction: column; align-items: flex-start; } }
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .service-card h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #0b5ed7;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .btn {
+      margin-top: 15px;
+      padding: 12px;
+      text-align: center;
+      background: #0b5ed7;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #084298;
+    }
+
+    .btn.whatsapp {
+      background: #25d366;
+    }
+
+    .btn.whatsapp:hover {
+      background: #1ebe5d;
+    }
+
+    .back {
+      margin-bottom: 20px;
+      display: inline-block;
+      text-decoration: none;
+      color: #0b5ed7;
+      font-weight: bold;
+    }
   </style>
 </head>
 
 <body>
 
-<!-- Top Navigation -->
-<nav>
-  <div><strong>StudyAid</strong></div>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="services.html">Student Services</a>
-    <a href="digital-services.html">Professional Services</a>
-  </div>
-</nav>
-
 <header>
   <h1>Professional Digital Services</h1>
-  <p>CVs • Cover Letters • Proposals • Simple Websites</p>
+  <p>High-quality writing & digital solutions</p>
 </header>
 
-<section>
-  <h2>Our Professional Services</h2>
-  <div class="grid">
+<div class="container">
+
+  <a href="index.html" class="back">← Back to Home</a>
+
+  <div class="service-grid">
 
     <!-- CV Writing -->
-    <div class="card">
-      <h3>📄 CV Writing</h3>
-      <p>Get a professional CV tailored to your field. Stand out and increase your chances of success.</p>
-      <a href="digital-upload.html?service=CV%20Writing" class="btn">Get Started</a>
+    <div class="service-card">
+      <h3>CV Writing</h3>
+      <p>
+        Professional CV tailored to your career goals.
+        ATS-friendly, clean layout, recruiter-ready.
+      </p>
+      <a href="digital-upload.html?service=CV Writing" class="btn">
+        Get Started
+      </a>
     </div>
 
-    <!-- Cover Letters -->
-    <div class="card">
-      <h3>✉️ Cover Letters</h3>
-      <p>Professional cover letters that match your CV and job application needs.</p>
-      <a href="digital-upload.html?service=Cover%20Letter" class="btn">Get Started</a>
+    <!-- Cover Letter -->
+    <div class="service-card">
+      <h3>Cover Letter</h3>
+      <p>
+        Personalized cover letters for job applications,
+        internships, or scholarships.
+      </p>
+      <a href="digital-upload.html?service=Cover Letter" class="btn">
+        Get Started
+      </a>
     </div>
 
-    <!-- Official Letters & Proposals -->
-    <div class="card">
-      <h3>📑 Official Letters & Proposals</h3>
-      <p>Custom official letters and proposals for business, school, or personal use.</p>
-      <a href="digital-upload.html?service=Official%20Letter%20or%20Proposal" class="btn">Get Started</a>
+    <!-- Official Letters -->
+    <div class="service-card">
+      <h3>Official Letters & Proposals</h3>
+      <p>
+        Formal letters and proposals for schools,
+        offices, businesses, and organizations.
+      </p>
+      <a href="digital-upload.html?service=Official Letter or Proposal" class="btn">
+        Get Started
+      </a>
     </div>
 
     <!-- Simple Website Setup -->
-    <div class="card">
-      <h3>💻 Simple Website Setup</h3>
-      <p>Quick website setup for personal or small business use. Fully functional and ready to go.</p>
-      <a href="https://wa.me/234XXXXXXXXXX?text=I%20want%20a%20Simple%20Website%20Setup" target="_blank" class="btn">Get Started</a>
+    <div class="service-card">
+      <h3>Simple Website Setup</h3>
+      <p>
+        Personal, business, or portfolio website setup.
+        Hosting guidance and basic configuration included.
+      </p>
+      <a 
+        href="https://wa.me/234XXXXXXXXXX?text=Hello%20I%20want%20a%20simple%20website%20setup"
+        class="btn whatsapp"
+        target="_blank"
+      >
+        Chat on WhatsApp
+      </a>
     </div>
 
   </div>
-</section>
-
-<footer>
-  <p>All services are processed professionally. Order preview and delivery details shown before payment.</p>
-  <p>© 2026 StudyAid • <a href="mailto:studyaid@email.com">Email Support</a></p>
-</footer>
+</div>
 
 </body>
 </html>
