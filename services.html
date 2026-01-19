@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>StudyAid – Student Services</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
     body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; margin:0; }
     
@@ -39,7 +38,7 @@
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
     .card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
     .card h3 { margin-top: 0; }
-    .btn { display: inline-block; margin: 10px 0; padding: 12px 22px; background: #ffcc00; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; }
+    .btn { display: inline-block; margin: 10px 0; padding: 12px 22px; background: #ffcc00; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; text-align:center; }
     
     footer { background: #222; color: #ddd; text-align: center; padding: 20px; font-size: 14px; }
     footer a { color: #ffcc00; text-decoration: none; }
@@ -70,26 +69,35 @@
 <section>
   <h2>Our Student Services</h2>
   <div class="grid">
+
+    <!-- Exam Question Explanations -->
     <div class="card">
       <h3>📘 Exam Question Explanations</h3>
       <p>Step-by-step explanations to help you understand your exam questions.</p>
       <a href="upload.html" class="btn">Get Started</a>
     </div>
+
+    <!-- Past Questions & Solutions (PDF) -->
     <div class="card">
       <h3>📄 Past Questions & Solutions (PDF)</h3>
       <p>Access fully solved past questions for WAEC, JAMB, and NECO. Each solution comes in <strong>easy-to-read PDF</strong> format, ready for practice and revision.</p>
-      <a href="past-questions.html" class="btn">Get Started</a>
+      <a href="past-questions.html" class="btn">Get Started</a> <!-- FIXED LINK -->
     </div>
+
+    <!-- Assignment & Homework Help -->
     <div class="card">
       <h3>✏️ Assignment & Homework Help</h3>
       <p>Submit your assignment and get clear solutions fast. You can type your question or upload an image.</p>
       <a href="upload.html" class="btn">Get Started</a>
     </div>
+
+    <!-- Urgent Same-Day Support -->
     <div class="card">
       <h3>⏱️ Urgent Same-Day Support</h3>
       <p>In a rush? Submit your question and get answers delivered the same day via Email & WhatsApp. Extra urgency fee applies.</p>
       <a href="upload.html" class="btn">Get Started</a>
     </div>
+
   </div>
 </section>
 
