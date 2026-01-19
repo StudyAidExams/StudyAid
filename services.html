@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; margin:0; }
-    
+
     /* Top Navigation */
     nav {
       background: #0a7cff;
@@ -14,16 +14,22 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 10px 20px;
       flex-wrap: wrap;
+      position: sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
     }
-    nav a {
+    nav .logo { display:flex; align-items:center; gap:10px; }
+    nav .logo img { height:40px; width:auto; }
+    nav .links a {
       color: #fff;
       text-decoration: none;
-      margin: 5px 10px;
+      margin: 0 12px;
       font-weight: bold;
     }
-    nav a:hover { text-decoration: underline; }
+    nav .links a:hover { text-decoration: underline; }
 
     header {
       background: #0a7cff;
@@ -36,15 +42,25 @@
 
     section { padding: 30px 20px; max-width: 900px; margin: auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
-    .card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-    .card h3 { margin-top: 0; }
-    .btn { display: inline-block; margin: 10px 0; padding: 12px 22px; background: #ffcc00; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; text-align:center; }
-    
+    .card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display:flex; flex-direction:column; justify-content:space-between; }
+    .card h3 { margin-top:0; }
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 22px;
+      background: #ffcc00;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      text-align:center;
+    }
     footer { background: #222; color: #ddd; text-align: center; padding: 20px; font-size: 14px; }
     footer a { color: #ffcc00; text-decoration: none; }
 
     @media(max-width:600px){
       nav { flex-direction: column; align-items: flex-start; }
+      nav .links a { margin:5px 0; }
     }
   </style>
 </head>
@@ -53,8 +69,11 @@
 
 <!-- Top Navigation -->
 <nav>
-  <div><strong>StudyAid</strong></div>
-  <div>
+  <div class="logo">
+    <img src="logo.png" alt="StudyAid Logo">
+    <strong>StudyAid</strong>
+  </div>
+  <div class="links">
     <a href="index.html">Home</a>
     <a href="services.html">Student Services</a>
     <a href="digital-services.html">Professional Services</a>
@@ -81,7 +100,7 @@
     <div class="card">
       <h3>📄 Past Questions & Solutions (PDF)</h3>
       <p>Access fully solved past questions for WAEC, JAMB, and NECO. Each solution comes in <strong>easy-to-read PDF</strong> format, ready for practice and revision.</p>
-      <a href="past-questions.html" class="btn">Get Started</a> <!-- FIXED LINK -->
+      <a href="past-questions.html" class="btn">Get Started</a>
     </div>
 
     <!-- Assignment & Homework Help -->
