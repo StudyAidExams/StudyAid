@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StudyAid – Upload Question</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      background: #fff;
+      padding: 20px;
+      margin: auto;
+      border-radius: 8px;
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .preview {
+      background: #f0f0f0;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    button {
+      background: #0a7cff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Upload Exam Question</h2>
+
+  <p><strong>Order ID:</strong> <span id="orderId"></span></p>
+
+  <label>Exam Type</label>
+  <select id="exam" onchange="updatePreview()">
+    <option>WAEC</option>
+    <option>JAMB</option>
+    <option>NECO</option>
+  </select>
+
+  <label>Subject</label>
+  <input type="text" id="subject" placeholder="e.g Mathematics" oninput="updatePreview()">
+
+  <label>Question</label>
+  <textarea id="question" rows="4" placeholder="Paste or describe the question" oninput="updatePreview()"></textarea>
+
+  <label>Email Address</label>
+  <input type="email" id="email" required>
+
+  <label>WhatsApp Number</label>
+  <input type="text" id="whatsapp" placeholder="080..." required>
+
+  <label>Delivery Speed</label>
+  <select id="urgency" onchange="updatePreview()">
+    <option value="normal">Normal (24–48 hrs)</option>
+    <option value="urgent">Urgent (Same Day)</option>
+  </select>
+
+  <div class="preview">
+    <h3>Order Preview</h3>
+    <p><strong>Exam:</strong> <span id="pExam"></span></p>
+    <p><strong>Subject:</strong> <span id="pSubject"></span></p>
+    <p><strong>Delivery:</strong> <span id="pDelivery"></span></p>
+    <p class="price">Total: ₦<span id="pPrice"></span></p>
+  </div>
+
+  <button onclick="payNow()">Proceed to Payment</button>
+</div>
+
+<script>
+  // Generate Order ID
+  const orderId = "SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random() * 9000 + 1000);
+  document.getElementById("orderId").innerText = orderId;
+
+  function updatePreview() {
+    const exam = document.getElementById("exam").value;
+    const subject = document.getElementById("subject").value || "—";
+    const urgency = document.getElementById("urgency").value;
+
+    let price = 500;
+    let delivery = "24–48 hours";
+
+    if (urgency === "urgent") {
+      price = 1500;
+      delivery = "Same Day";
+    }
+
+    document.getElementById("pExam").innerText = exam;
+    document.getElementById("pSubject").innerText = subject;
+    document.getElementById("pDelivery").innerText = delivery;
+    document.getElementById("pPrice").innerText = price;
+  }
+
+  updatePreview();
+
+  function payNow() {
+    alert(
+      "Order ID: " + orderId +
+      "\nProceeding to payment.\n\n(You will connect Paystack here)"
+    );
+
+    // Later:
+    // window.location.href = "PAYSTACK_PAYMENT_LINK?reference=" + orderId;
+  }
+</script>
+
+</body>
+</html>
