@@ -126,7 +126,7 @@ if(service === "CV Writing"){
 // Update order preview
 function updatePreview(){
   const urgency = document.getElementById("urgency").value;
-  let price = 2000; // default base
+  let price = 2000; // base price
   let delivery = "2–3 Days";
   if(urgency === "urgent") { price = 3500; delivery = "Same Day"; }
   document.getElementById("pDelivery").innerText = delivery;
