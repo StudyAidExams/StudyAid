@@ -1,125 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>StudyAid – Student Services</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; margin:0; }
+<meta charset="UTF-8">
+<title>StudyAid – Student Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; margin:0; }
 
-    /* Top Navigation - vertical */
-    nav {
-      background: #0a7cff;
-      color: #fff;
-      padding: 15px 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    nav .logo {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    nav .logo img {
-      height: 40px;
-      width: auto;
-      vertical-align: middle;
-    }
-    nav .logo strong {
-      font-size: 20px;
-      margin-left: 10px;
-    }
-    nav .links {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    nav .links a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav .links a:hover { text-decoration: underline; }
+  /* Top Banner */
+  header {
+    background: #0a7cff;
+    color: #fff;
+    padding: 20px 15px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 5px 0;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  header p {
+    font-size: 14px;
+    margin: 5px 0 0 0;
+    opacity: 0.9;
+  }
 
-    header {
-      background: #0a7cff;
-      color: #fff;
-      padding: 30px 20px;
-      text-align: center;
-    }
-    header h1 { margin-bottom: 5px; }
-    header p { font-size: 16px; opacity: 0.95; }
+  /* Vertical Navigation Banners */
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+  }
+  nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+    background: #28a745; /* green banner */
+    border-radius: 6px;
+    width: 180px;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  nav a:hover {
+    background: #218838;
+  }
 
-    section { padding: 30px 20px; max-width: 900px; margin: auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
-    .card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display:flex; flex-direction:column; justify-content:space-between; }
-    .card h3 { margin-top:0; }
-    .btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 22px;
-      background: #ffcc00;
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 5px;
-      text-align:center;
-    }
+  section {
+    padding: 25px 15px;
+    max-width: 900px;
+    margin: auto;
+  }
 
-    footer { background: #222; color: #ddd; text-align: center; padding: 20px; font-size: 14px; }
-    footer a { color: #ffcc00; text-decoration: none; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    gap: 20px;
+  }
+  .card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .card h3 { margin-top: 0; }
+  .btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 22px;
+    background: #ffcc00;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align:center;
+  }
 
-    @media(max-width:600px){
-      .grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  footer { background: #222; color: #ddd; text-align: center; padding: 20px; font-size: 14px; }
+  footer a { color: #ffcc00; text-decoration: none; }
+
+  @media(max-width:600px){
+    .grid { grid-template-columns: 1fr; }
+    nav a { width: 100%; }
+  }
+</style>
 </head>
 
 <body>
 
-<!-- Top Navigation -->
-<nav>
-  <div class="logo">
-    <img src="https://i.postimg.cc/0jMg7JrR/IMG-20260119-174916-789.jpg" alt="StudyAid Logo">
-    <strong>StudyAid</strong>
-  </div>
-  <div class="links">
-    <a href="index.html">Home</a>
-    <a href="services.html">Student Services</a>
-    <a href="digital-services.html">Professional Services</a>
-  </div>
-</nav>
-
+<!-- Top Banner with vertical nav -->
 <header>
   <h1>StudyAid – Student Services</h1>
   <p>WAEC • JAMB • NECO Study Assistance & Explanations</p>
 </header>
 
+<nav>
+  <a href="index.html">Home</a>
+  <a href="services.html">Student Services</a>
+  <a href="digital-services.html">Professional Services</a>
+</nav>
+
 <section>
   <h2>Our Student Services</h2>
   <div class="grid">
 
-    <!-- Exam Question Explanations -->
     <div class="card">
       <h3>📘 Exam Question Explanations</h3>
       <p>Step-by-step explanations to help you understand your exam questions.</p>
       <a href="upload.html" class="btn">Get Started</a>
     </div>
 
-    <!-- Past Questions & Solutions (PDF) -->
     <div class="card">
       <h3>📄 Past Questions & Solutions (PDF)</h3>
       <p>Access fully solved past questions for WAEC, JAMB, and NECO. Each solution comes in <strong>easy-to-read PDF</strong> format, ready for practice and revision.</p>
       <a href="past-questions.html" class="btn">Get Started</a>
     </div>
 
-    <!-- Assignment & Homework Help -->
     <div class="card">
       <h3>✏️ Assignment & Homework Help</h3>
       <p>Submit your assignment and get clear solutions fast. You can type your question or upload an image.</p>
       <a href="upload.html" class="btn">Get Started</a>
     </div>
 
-    <!-- Urgent Same-Day Support -->
     <div class="card">
       <h3>⏱️ Urgent Same-Day Support</h3>
       <p>In a rush? Submit your question and get answers delivered the same day via Email & WhatsApp. Extra urgency fee applies.</p>
