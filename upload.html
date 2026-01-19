@@ -1,150 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudyAid - Upload Order</title>
-<style>
-body { font-family: Arial, sans-serif; margin: 0; padding: 0; background:#f9f9f9; }
-.container { max-width: 600px; margin: 30px auto; background: #fff; padding: 20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
-h2 { text-align:center; color:#333; }
-label { display:block; margin-top:15px; font-weight:bold; }
-input, select, textarea { width:100%; padding:10px; margin-top:5px; border-radius:5px; border:1px solid #ccc; }
-button { margin-top:20px; padding:12px; width:100%; background:#4CAF50; color:#fff; border:none; border-radius:5px; font-size:16px; cursor:pointer; }
-button:hover { background:#45a049; }
-.order-preview { margin-top:25px; padding:15px; border:1px solid #ccc; border-radius:5px; background:#f1f1f1; }
-.bank-details { display:none; margin-top:20px; padding:15px; border:1px solid #2196F3; border-radius:5px; background:#e3f2fd; }
-</style>
+  <meta charset="UTF-8">
+  <title>StudyAid – Upload Question</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; margin:0; }
+    .container { max-width: 600px; background: #fff; padding: 20px; margin: auto; border-radius: 8px; }
+    h2 { text-align: center; }
+    label { display:block; margin-top:12px; font-weight:bold; }
+    input, select, textarea, button { width:100%; padding:10px; margin-top:5px; }
+    textarea { resize: vertical; }
+    .preview { background:#f0f0f0; padding:15px; margin-top:20px; border-radius:6px; }
+    .price { font-size:18px; font-weight:bold; }
+    button { background:#0a7cff; color:#fff; border:none; cursor:pointer; margin-top:15px; }
+  </style>
 </head>
+
 <body>
+
 <div class="container">
-<h2>Place Your Order</h2>
-<form id="orderForm">
-  <label for="service">Service</label>
-  <select id="service" required>
-    <option value="">Select Service</option>
-    <option value="Assignment & Homework Help">Assignment & Homework Help</option>
-    <option value="Exam Questions Explanation">Exam Questions Explanation</option>
-    <option value="Past Questions & Solutions (PDF)">Past Questions & Solutions (PDF)</option>
-    <option value="CV Writing">CV Writing</option>
-    <option value="Cover Letter">Cover Letter</option>
-    <option value="Official Letters & Proposals">Official Letters & Proposals</option>
-    <option value="Simple Website Setup">Simple Website Setup</option>
+  <h2>Upload Exam Question</h2>
+  <p><strong>Order ID:</strong> <span id="orderId"></span></p>
+
+  <!-- Exam / question section -->
+  <div id="examSection">
+    <label>Exam Type</label>
+    <select id="exam" onchange="updatePreview()">
+      <option>WAEC</option>
+      <option>JAMB</option>
+      <option>NECO</option>
+    </select>
+
+    <label>Subject</label>
+    <input type="text" id="subject" placeholder="e.g Mathematics" oninput="updatePreview()">
+
+    <label>Question</label>
+    <textarea id="question" rows="4" placeholder="Paste or describe the question" oninput="updatePreview()"></textarea>
+
+    <label>Upload Question Image (Optional)</label>
+    <input type="file" id="questionImage" accept="image/png, image/jpeg, image/jpg" onchange="updatePreview()">
+  </div>
+
+  <label>Email Address</label>
+  <input type="email" id="email" required>
+
+  <label>WhatsApp Number</label>
+  <input type="text" id="whatsapp" placeholder="080..." required>
+
+  <label>Delivery Speed</label>
+  <select id="urgency" onchange="updatePreview()">
+    <option value="normal">Normal (24–48 hrs)</option>
+    <option value="urgent">Urgent (Same Day)</option>
   </select>
 
-  <label for="urgency">Delivery Speed</label>
-  <select id="urgency" required>
-    <option value="Normal">Normal</option>
-    <option value="Urgent">Urgent</option>
-  </select>
+  <div class="preview">
+    <h3>Order Preview</h3>
+    <p><strong>Order:</strong> <span id="pExam"></span></p>
+    <p><strong>Subject:</strong> <span id="pSubject"></span></p>
+    <p><strong>Question:</strong> <span id="pQuestion"></span></p>
+    <p><strong>Delivery:</strong> <span id="pDelivery"></span></p>
+    <p class="price">Total: ₦<span id="pPrice"></span></p>
+  </div>
 
-  <label for="name">Full Name</label>
-  <input type="text" id="name" placeholder="John Doe" required>
-
-  <label for="email">Email Address</label>
-  <input type="email" id="email" value="obaromichael47@gmail.com" required>
-
-  <label for="whatsapp">WhatsApp Number</label>
-  <input type="text" id="whatsapp" placeholder="08012345678" required>
-
-  <label for="file">Upload File / Image / Text</label>
-  <input type="file" id="file">
-
-  <button type="button" onclick="generateOrder()">Preview Order</button>
-</form>
-
-<div class="order-preview" id="orderPreview" style="display:none;">
-<h3>Order Summary</h3>
-<p id="previewText"></p>
-<button onclick="showBankDetails()">Proceed to Payment</button>
-</div>
-
-<div class="bank-details" id="bankDetails">
-<h3>Bank Payment Details</h3>
-<p>Bank Name: OPay<br>
-Account Name: Michael Obaro<br>
-Account Number: 6142529254<br>
-Reference: <span id="orderIDBank"></span><br>
-Amount: ₦<span id="orderTotalBank"></span></p>
-<button onclick="redirectWhatsApp()">I’ve Paid</button>
-</div>
+  <button onclick="payNow()">Proceed to Payment</button>
 </div>
 
 <script>
-let orderCounter = 0;
+  // Generate unique Order ID
+  const orderId = "SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*9000+1000);
+  document.getElementById("orderId").innerText = orderId;
 
-function generateOrder() {
-  const service = document.getElementById('service').value;
-  const urgency = document.getElementById('urgency').value;
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const whatsapp = document.getElementById('whatsapp').value;
+  // Parse URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get('type'); // 'pq' if Past Questions
+  const selectedExam = params.get('exam'); // e.g., "WAEC Past Questions"
 
-  if (!service || !urgency || !name || !email || !whatsapp) {
-    alert('Please fill all required fields!');
-    return;
+  // Elements
+  const examSection = document.getElementById("examSection");
+  const questionField = document.getElementById("question");
+  const subjectField = document.getElementById("subject");
+  const imageField = document.getElementById("questionImage");
+  const examSelect = document.getElementById("exam");
+
+  // If Past Questions flow, hide normal fields
+  if(type === 'pq' && selectedExam){
+    examSection.style.display = "none";
   }
 
-  orderCounter++;
-  const now = new Date();
-  const timestamp = now.getFullYear().toString() + 
-                    (now.getMonth()+1).toString().padStart(2,'0') + 
-                    now.getDate().toString().padStart(2,'0') + 
-                    now.getHours().toString().padStart(2,'0') + 
-                    now.getMinutes().toString().padStart(2,'0');
-  const orderID = `STUDY_${timestamp}_${orderCounter}`;
+  function updatePreview(){
+    const urgency = document.getElementById("urgency").value;
+    let price = 500;
+    let delivery = "24–48 hours";
+    if(urgency === "urgent") { price = 1500; delivery="Same Day"; }
 
-  // Price logic
-  let basePrice = 3000; // default base for demo
-  if (service.includes("CV") || service.includes("Cover") || service.includes("Official") || service.includes("Simple Website")) {
-    basePrice = 3500; // digital services example
+    document.getElementById("pDelivery").innerText = delivery;
+    document.getElementById("pPrice").innerText = price;
+
+    if(type === 'pq' && selectedExam){
+      document.getElementById("pExam").innerText = selectedExam;
+      document.getElementById("pSubject").innerText = "—";
+      document.getElementById("pQuestion").innerText = "—";
+    } else {
+      const exam = examSelect ? examSelect.value : "—";
+      const subject = subjectField ? subjectField.value || "—" : "—";
+      let qPreview = questionField ? questionField.value.trim() : "";
+      if(imageField && imageField.files.length>0) qPreview += (qPreview ? " + " : "") + "[Image Attached]";
+      document.getElementById("pExam").innerText = exam;
+      document.getElementById("pSubject").innerText = subject;
+      document.getElementById("pQuestion").innerText = qPreview || "—";
+    }
   }
-  let urgentFee = urgency === "Urgent" ? 1500 : 0;
-  let total = basePrice + urgentFee;
 
-  const previewText = `
-Order ID: ${orderID}
-Service: ${service}
-Delivery: ${urgency}
-Base Price: ₦${basePrice}
-Urgent Fee: ₦${urgentFee}
-Total: ₦${total}
-Name: ${name}
-Email: ${email}
-WhatsApp: ${whatsapp}
-  `;
+  // Initial preview
+  updatePreview();
 
-  document.getElementById('orderPreview').style.display = 'block';
-  document.getElementById('previewText').innerText = previewText;
+  function payNow(){
+    alert(
+      "Order ID: " + orderId +
+      "\nProceeding to payment.\n\n(You will connect Paystack here)"
+    );
+  }
+</script>
 
-  // Save details for bank section
-  document.getElementById('orderIDBank').innerText = orderID;
-  document.getElementById('orderTotalBank').innerText = total;
-
-  // Save for WhatsApp redirect
-  window.currentOrder = {orderID, service, urgency, total, name, email, whatsapp};
-}
-
-function showBankDetails() {
-  document.getElementById('bankDetails').style.display = 'block';
-  // Scroll to bank section
-  document.getElementById('bankDetails').scrollIntoView({behavior: "smooth"});
-}
-
-function redirectWhatsApp() {
-  const order = window.currentOrder;
-  if (!order) { alert("No order generated!"); return; }
-
-  const waMessage = `Hello Michael, I have paid for my order.
-Order ID: ${order.orderID}
-Service: ${order.service}
-Delivery: ${order.urgency}
-Total: ₦${order.total}
-My Name: ${order.name}
-Email: ${order.email}
-WhatsApp: ${order.whatsapp}`;
-
-  const waLink = `https://wa.me/2349091156097?text=` + encodeURIComponent(waMessage);
-  window.open(waLink, "_blank");
-}
-  </script>
+</body>
+</html>
