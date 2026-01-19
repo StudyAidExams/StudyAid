@@ -2,101 +2,136 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StudyAid – Student Services</title>
+  <title>StudyAid – Upload Question</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; margin:0; }
-    
-    /* Top Navigation */
-    nav {
-      background: #0a7cff;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      flex-wrap: wrap;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+      margin:0;
     }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin: 5px 10px;
-      font-weight: bold;
+    .container {
+      max-width: 600px;
+      background: #fff;
+      padding: 20px;
+      margin: auto;
+      border-radius: 8px;
     }
-    nav a:hover { text-decoration: underline; }
-
-    header {
-      background: #0a7cff;
-      color: #fff;
-      padding: 30px 20px;
+    h2 {
       text-align: center;
     }
-    header h1 { margin-bottom: 5px; }
-    header p { font-size: 16px; opacity: 0.95; }
-
-    section { padding: 30px 20px; max-width: 900px; margin: auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
-    .card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-    .card h3 { margin-top: 0; }
-    .btn { display: inline-block; margin: 10px 0; padding: 12px 22px; background: #ffcc00; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; }
-    
-    footer { background: #222; color: #ddd; text-align: center; padding: 20px; font-size: 14px; }
-    footer a { color: #ffcc00; text-decoration: none; }
-
-    @media(max-width:600px){
-      nav { flex-direction: column; align-items: flex-start; }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    textarea { resize: vertical; }
+    .preview {
+      background: #f0f0f0;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+    .price { font-size: 18px; font-weight: bold; }
+    button {
+      background: #0a7cff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
     }
   </style>
 </head>
 
 <body>
 
-<!-- Top Navigation -->
-<nav>
-  <div><strong>StudyAid</strong></div>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="services.html">Student Services</a>
-    <a href="digital-services.html">Professional Services</a>
+<div class="container">
+  <h2>Upload Exam Question</h2>
+
+  <p><strong>Order ID:</strong> <span id="orderId"></span></p>
+
+  <label>Exam Type</label>
+  <select id="exam" onchange="updatePreview()">
+    <option>WAEC</option>
+    <option>JAMB</option>
+    <option>NECO</option>
+  </select>
+
+  <label>Subject</label>
+  <input type="text" id="subject" placeholder="e.g Mathematics" oninput="updatePreview()">
+
+  <label>Question</label>
+  <textarea id="question" rows="4" placeholder="Paste or describe the question" oninput="updatePreview()"></textarea>
+
+  <label>Upload Question Image (Optional)</label>
+  <input type="file" id="questionImage" accept="image/png, image/jpeg, image/jpg" onchange="updatePreview()">
+
+  <label>Email Address</label>
+  <input type="email" id="email" required>
+
+  <label>WhatsApp Number</label>
+  <input type="text" id="whatsapp" placeholder="080..." required>
+
+  <label>Delivery Speed</label>
+  <select id="urgency" onchange="updatePreview()">
+    <option value="normal">Normal (24–48 hrs)</option>
+    <option value="urgent">Urgent (Same Day)</option>
+  </select>
+
+  <div class="preview">
+    <h3>Order Preview</h3>
+    <p><strong>Exam:</strong> <span id="pExam"></span></p>
+    <p><strong>Subject:</strong> <span id="pSubject"></span></p>
+    <p><strong>Question:</strong> <span id="pQuestion"></span></p>
+    <p><strong>Delivery:</strong> <span id="pDelivery"></span></p>
+    <p class="price">Total: ₦<span id="pPrice"></span></p>
   </div>
-</nav>
 
-<header>
-  <h1>StudyAid – Student Services</h1>
-  <p>WAEC • JAMB • NECO Study Assistance & Explanations</p>
-</header>
+  <button onclick="payNow()">Proceed to Payment</button>
+</div>
 
-<section>
-  <h2>Our Student Services</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>📘 Exam Question Explanations</h3>
-      <p>Step-by-step explanations to help you understand your exam questions.</p>
-      <a href="upload.html" class="btn">Get Started</a>
-    </div>
-    <div class="card">
-      <h3>📄 Past Questions & Solutions (PDF)</h3>
-      <p>Access fully solved past questions for WAEC, JAMB, and NECO. Each solution comes in <strong>easy-to-read PDF</strong> format, ready for practice and revision.</p>
-      <a href="upload.html" class="btn">Get Started</a>
-    </div>
-    <div class="card">
-      <h3>✏️ Assignment & Homework Help</h3>
-      <p>Submit your assignment and get clear solutions fast. You can type your question or upload an image.</p>
-      <a href="upload.html" class="btn">Get Started</a>
-    </div>
-    <div class="card">
-      <h3>⏱️ Urgent Same-Day Support</h3>
-      <p>In a rush? Submit your question and get answers delivered the same day via Email & WhatsApp. Extra urgency fee applies.</p>
-      <a href="upload.html" class="btn">Get Started</a>
-    </div>
-  </div>
-</section>
+<script>
+  // Generate unique Order ID
+  const orderId = "SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random() * 9000 + 1000);
+  document.getElementById("orderId").innerText = orderId;
 
-<footer>
-  <p>StudyAid provides <strong>study assistance and explanations</strong> for learning purposes.</p>
-  <p>© 2026 StudyAid • <a href="mailto:studyaid@email.com">Email Support</a></p>
-</footer>
+  function updatePreview() {
+    const exam = document.getElementById("exam").value;
+    const subject = document.getElementById("subject").value || "—";
+    const urgency = document.getElementById("urgency").value;
+    const questionText = document.getElementById("question").value.trim();
+    const questionImage = document.getElementById("questionImage").files.length > 0;
 
-</body>
-</html>
+    let price = 500;
+    let delivery = "24–48 hours";
+
+    if (urgency === "urgent") {
+      price = 1500;
+      delivery = "Same Day";
+    }
+
+    document.getElementById("pExam").innerText = exam;
+    document.getElementById("pSubject").innerText = subject;
+    document.getElementById("pDelivery").innerText = delivery;
+    document.getElementById("pPrice").innerText = price;
+
+    // Show question preview (text + optional image)
+    let qPreview = questionText ? questionText : "";
+    if (questionImage) qPreview += (qPreview ? " + " : "") + "[Image Attached]";
+    document.getElementById("pQuestion").innerText = qPreview || "—";
+  }
+
+  updatePreview();
+
+  function payNow() {
+    alert(
+      "Order ID: " + orderId +
+      "\nProceeding to payment.\n\n(You will connect Paystack here)"
+    );
