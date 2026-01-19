@@ -7,19 +7,21 @@
   <style>
     body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; margin:0; }
     .container { max-width: 600px; background: #fff; padding: 20px; margin: auto; border-radius: 8px; }
-    h2 { text-align: center; }
+    h2 { text-align: center; margin-bottom: 15px; }
     label { display:block; margin-top:12px; font-weight:bold; }
-    input, select, textarea, button { width:100%; padding:10px; margin-top:5px; }
+    input, select, textarea, button { width:100%; padding:10px; margin-top:5px; border-radius:5px; border:1px solid #ccc; }
     textarea { resize: vertical; }
     .preview { background:#f0f0f0; padding:15px; margin-top:20px; border-radius:6px; }
     .price { font-size:18px; font-weight:bold; }
-    button { background:#0a7cff; color:#fff; border:none; cursor:pointer; margin-top:15px; }
+    button { background:#0a7cff; color:#fff; border:none; cursor:pointer; margin-top:15px; font-weight:bold; }
+    button.back-btn { background:#ddd; color:#000; margin-bottom:15px; }
   </style>
 </head>
 
 <body>
 
 <div class="container">
+  <button class="back-btn" onclick="window.history.back()">← Back</button>
   <h2>Upload Exam Question</h2>
   <p><strong>Order ID:</strong> <span id="orderId"></span></p>
 
@@ -42,6 +44,9 @@
     <input type="file" id="questionImage" accept="image/png, image/jpeg, image/jpg" onchange="updatePreview()">
   </div>
 
+  <label>Full Name</label>
+  <input type="text" id="fullname" placeholder="John Doe" required>
+
   <label>Email Address</label>
   <input type="email" id="email" required>
 
@@ -63,7 +68,7 @@
     <p class="price">Total: ₦<span id="pPrice"></span></p>
   </div>
 
-  <button onclick="payNow()">Proceed to Payment</button>
+  <button onclick="proceedToPayment()">Proceed to Payment</button>
 </div>
 
 <script>
@@ -71,22 +76,10 @@
   const orderId = "SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*9000+1000);
   document.getElementById("orderId").innerText = orderId;
 
-  // Parse URL parameters
-  const params = new URLSearchParams(window.location.search);
-  const type = params.get('type'); // 'pq' if Past Questions
-  const selectedExam = params.get('exam'); // e.g., "WAEC Past Questions"
-
-  // Elements
-  const examSection = document.getElementById("examSection");
-  const questionField = document.getElementById("question");
-  const subjectField = document.getElementById("subject");
-  const imageField = document.getElementById("questionImage");
   const examSelect = document.getElementById("exam");
-
-  // If Past Questions flow, hide normal fields
-  if(type === 'pq' && selectedExam){
-    examSection.style.display = "none";
-  }
+  const subjectField = document.getElementById("subject");
+  const questionField = document.getElementById("question");
+  const imageField = document.getElementById("questionImage");
 
   function updatePreview(){
     const urgency = document.getElementById("urgency").value;
@@ -97,29 +90,35 @@
     document.getElementById("pDelivery").innerText = delivery;
     document.getElementById("pPrice").innerText = price;
 
-    if(type === 'pq' && selectedExam){
-      document.getElementById("pExam").innerText = selectedExam;
-      document.getElementById("pSubject").innerText = "—";
-      document.getElementById("pQuestion").innerText = "—";
-    } else {
-      const exam = examSelect ? examSelect.value : "—";
-      const subject = subjectField ? subjectField.value || "—" : "—";
-      let qPreview = questionField ? questionField.value.trim() : "";
-      if(imageField && imageField.files.length>0) qPreview += (qPreview ? " + " : "") + "[Image Attached]";
-      document.getElementById("pExam").innerText = exam;
-      document.getElementById("pSubject").innerText = subject;
-      document.getElementById("pQuestion").innerText = qPreview || "—";
-    }
+    const exam = examSelect.value || "—";
+    const subject = subjectField.value || "—";
+    let qPreview = questionField.value.trim();
+    if(imageField.files.length>0) qPreview += (qPreview ? " + " : "") + "[Image Attached]";
+    document.getElementById("pExam").innerText = exam;
+    document.getElementById("pSubject").innerText = subject;
+    document.getElementById("pQuestion").innerText = qPreview || "—";
   }
-
-  // Initial preview
   updatePreview();
 
-  function payNow(){
-    alert(
-      "Order ID: " + orderId +
-      "\nProceeding to payment.\n\n(You will connect Paystack here)"
-    );
+  function proceedToPayment(){
+    const fullname = document.getElementById("fullname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const whatsapp = document.getElementById("whatsapp").value.trim();
+    const delivery = document.getElementById("pDelivery").innerText;
+    const total = document.getElementById("pPrice").innerText;
+    const exam = document.getElementById("pExam").innerText;
+    const subject = document.getElementById("pSubject").innerText;
+    const question = document.getElementById("pQuestion").innerText;
+
+    if(!fullname || !email || !whatsapp){
+      alert("Please fill in all required fields!");
+      return;
+    }
+
+    // Redirect to payment.html with all details in URL
+    const paymentURL = `payment.html?orderID=${encodeURIComponent(orderId)}&service=${encodeURIComponent(exam)}&subject=${encodeURIComponent(subject)}&question=${encodeURIComponent(question)}&name=${encodeURIComponent(fullname)}&email=${encodeURIComponent(email)}&whatsapp=${encodeURIComponent(whatsapp)}&urgency=${encodeURIComponent(delivery)}&total=${encodeURIComponent(total)}`;
+
+    window.location.href = paymentURL;
   }
 </script>
 
