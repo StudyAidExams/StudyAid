@@ -2,60 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StudyAid – Professional Services</title>
+  <title>StudyAid – Professional Digital Services</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
     body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; margin:0; }
+
+    /* Top Navigation */
+    nav {
+      background: #0a7cff;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      flex-wrap: wrap;
+    }
+    nav a { color: #fff; text-decoration: none; margin: 5px 10px; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+
     header { background: #0a7cff; color: #fff; padding: 30px 20px; text-align: center; }
     header h1 { margin-bottom: 5px; }
     header p { font-size: 16px; opacity: 0.95; }
-    .btn { display: inline-block; margin: 10px 0; padding: 12px 22px; background: #ffcc00; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; }
+
     section { padding: 30px 20px; max-width: 900px; margin: auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
     .card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
     .card h3 { margin-top: 0; }
+    .btn { display: inline-block; margin: 10px 0; padding: 12px 22px; background: #ffcc00; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; text-align:center; }
+
     footer { background: #222; color: #ddd; text-align: center; padding: 20px; font-size: 14px; }
     footer a { color: #ffcc00; text-decoration: none; }
+
+    @media(max-width:600px){ nav { flex-direction: column; align-items: flex-start; } }
   </style>
 </head>
 
 <body>
 
+<!-- Top Navigation -->
+<nav>
+  <div><strong>StudyAid</strong></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="services.html">Student Services</a>
+    <a href="digital-services.html">Professional Services</a>
+  </div>
+</nav>
+
 <header>
-  <h1>StudyAid – Professional Services</h1>
-  <p>CVs, Letters, Proposals & Simple Website Setup</p>
+  <h1>Professional Digital Services</h1>
+  <p>CVs • Cover Letters • Proposals • Simple Websites</p>
 </header>
 
 <section>
   <h2>Our Professional Services</h2>
   <div class="grid">
+
+    <!-- CV Writing -->
     <div class="card">
       <h3>📄 CV Writing</h3>
-      <p>Get a professional CV to stand out and land your dream job.</p>
-      <a href="https://wa.me/2349091156097" class="btn" target="_blank">Get Started</a>
+      <p>Get a professional CV tailored to your field. Stand out and increase your chances of success.</p>
+      <a href="digital-upload.html?service=CV%20Writing" class="btn">Get Started</a>
     </div>
+
+    <!-- Cover Letters -->
     <div class="card">
       <h3>✉️ Cover Letters</h3>
-      <p>Custom cover letters that make a strong impression.</p>
-      <a href="https://wa.me/2349091156097" class="btn" target="_blank">Get Started</a>
+      <p>Professional cover letters that match your CV and job application needs.</p>
+      <a href="digital-upload.html?service=Cover%20Letter" class="btn">Get Started</a>
     </div>
+
+    <!-- Official Letters & Proposals -->
     <div class="card">
-      <h3>📝 Official Letters & Proposals</h3>
-      <p>Professional letters and business proposals done for you.</p>
-      <a href="https://wa.me/2349091156097" class="btn" target="_blank">Get Started</a>
+      <h3>📑 Official Letters & Proposals</h3>
+      <p>Custom official letters and proposals for business, school, or personal use.</p>
+      <a href="digital-upload.html?service=Official%20Letter%20or%20Proposal" class="btn">Get Started</a>
     </div>
+
+    <!-- Simple Website Setup -->
     <div class="card">
-      <h3>🌐 Simple Website Setup</h3>
-      <p>Launch your personal or business website quickly and affordably.</p>
-      <a href="https://wa.me/2349091156097" class="btn" target="_blank">Get Started</a>
+      <h3>💻 Simple Website Setup</h3>
+      <p>Quick website setup for personal or small business use. Fully functional and ready to go.</p>
+      <a href="digital-upload.html?service=Simple%20Website%20Setup" class="btn">Get Started</a>
     </div>
+
   </div>
 </section>
 
 <footer>
-  <p>StudyAid provides <strong>study assistance and explanations</strong> for learning purposes.</p>
-  <p>© 2026 StudyAid • <a href="obaromichael47@gmail.com">Email Support</a></p>
+  <p>All services are processed professionally. Order preview and delivery details shown before payment.</p>
+  <p>© 2026 StudyAid • <a href="mailto:studyaid@email.com">Email Support</a></p>
 </footer>
 
 </body>
