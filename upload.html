@@ -1,17 +1,118 @@
-document.getElementById("pExam").innerText = selectedExam;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StudyAid – Upload Question</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; margin:0; }
+    .container { max-width: 600px; background: #fff; padding: 20px; margin: auto; border-radius: 8px; }
+    h2 { text-align: center; }
+    label { display:block; margin-top:12px; font-weight:bold; }
+    input, select, textarea, button { width:100%; padding:10px; margin-top:5px; }
+    textarea { resize: vertical; }
+    .preview { background:#f0f0f0; padding:15px; margin-top:20px; border-radius:6px; }
+    .price { font-size:18px; font-weight:bold; }
+    button { background:#0a7cff; color:#fff; border:none; cursor:pointer; margin-top:15px; }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Upload Exam Question</h2>
+  <p><strong>Order ID:</strong> <span id="orderId"></span></p>
+
+  <!-- Exam / question section -->
+  <div id="examSection">
+    <label>Exam Type</label>
+    <select id="exam" onchange="updatePreview()">
+      <option>WAEC</option>
+      <option>JAMB</option>
+      <option>NECO</option>
+    </select>
+
+    <label>Subject</label>
+    <input type="text" id="subject" placeholder="e.g Mathematics" oninput="updatePreview()">
+
+    <label>Question</label>
+    <textarea id="question" rows="4" placeholder="Paste or describe the question" oninput="updatePreview()"></textarea>
+
+    <label>Upload Question Image (Optional)</label>
+    <input type="file" id="questionImage" accept="image/png, image/jpeg, image/jpg" onchange="updatePreview()">
+  </div>
+
+  <label>Email Address</label>
+  <input type="email" id="email" required>
+
+  <label>WhatsApp Number</label>
+  <input type="text" id="whatsapp" placeholder="080..." required>
+
+  <label>Delivery Speed</label>
+  <select id="urgency" onchange="updatePreview()">
+    <option value="normal">Normal (24–48 hrs)</option>
+    <option value="urgent">Urgent (Same Day)</option>
+  </select>
+
+  <div class="preview">
+    <h3>Order Preview</h3>
+    <p><strong>Order:</strong> <span id="pExam"></span></p>
+    <p><strong>Subject:</strong> <span id="pSubject"></span></p>
+    <p><strong>Question:</strong> <span id="pQuestion"></span></p>
+    <p><strong>Delivery:</strong> <span id="pDelivery"></span></p>
+    <p class="price">Total: ₦<span id="pPrice"></span></p>
+  </div>
+
+  <button onclick="payNow()">Proceed to Payment</button>
+</div>
+
+<script>
+  // Generate unique Order ID
+  const orderId = "SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*9000+1000);
+  document.getElementById("orderId").innerText = orderId;
+
+  // Parse URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get('type'); // 'pq' if Past Questions
+  const selectedExam = params.get('exam'); // e.g., "WAEC Past Questions"
+
+  // Elements
+  const examSection = document.getElementById("examSection");
+  const questionField = document.getElementById("question");
+  const subjectField = document.getElementById("subject");
+  const imageField = document.getElementById("questionImage");
+  const examSelect = document.getElementById("exam");
+
+  // If Past Questions flow, hide normal fields
+  if(type === 'pq' && selectedExam){
+    examSection.style.display = "none";
+  }
+
+  function updatePreview(){
+    const urgency = document.getElementById("urgency").value;
+    let price = 500;
+    let delivery = "24–48 hours";
+    if(urgency === "urgent") { price = 1500; delivery="Same Day"; }
+
+    document.getElementById("pDelivery").innerText = delivery;
+    document.getElementById("pPrice").innerText = price;
+
+    if(type === 'pq' && selectedExam){
+      document.getElementById("pExam").innerText = selectedExam;
       document.getElementById("pSubject").innerText = "—";
       document.getElementById("pQuestion").innerText = "—";
     } else {
-      const exam = document.getElementById("exam").value;
-      const subject = document.getElementById("subject").value || "—";
+      const exam = examSelect ? examSelect.value : "—";
+      const subject = subjectField ? subjectField.value || "—" : "—";
+      let qPreview = questionField ? questionField.value.trim() : "";
+      if(imageField && imageField.files.length>0) qPreview += (qPreview ? " + " : "") + "[Image Attached]";
       document.getElementById("pExam").innerText = exam;
       document.getElementById("pSubject").innerText = subject;
-      let qPreview = questionText ? questionText : "";
-      if(questionImage) qPreview += (qPreview ? " + " : "") + "[Image Attached]";
       document.getElementById("pQuestion").innerText = qPreview || "—";
     }
   }
 
+  // Initial preview
   updatePreview();
 
   function payNow(){
@@ -19,9 +120,8 @@ document.getElementById("pExam").innerText = selectedExam;
       "Order ID: " + orderId +
       "\nProceeding to payment.\n\n(You will connect Paystack here)"
     );
-    // Later: connect Paystack with reference = orderId
   }
 </script>
 
 </body>
-</html>
+             </html>
