@@ -1,119 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>StudyAid – Digital Service Upload</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; margin:0; }
-    .container { max-width: 700px; background: #fff; padding: 25px; margin: auto; border-radius: 8px; box-shadow: 0 3px 8px rgba(0,0,0,0.05);}
-    h2 { text-align: center; margin-bottom: 15px; }
-    label { display:block; margin-top:12px; font-weight:bold; }
-    input, select, textarea, button { width:100%; padding:10px; margin-top:5px; }
-    textarea { resize: vertical; }
-    .preview { background:#f0f0f0; padding:15px; margin-top:20px; border-radius:6px; }
-    .price { font-size:18px; font-weight:bold; margin-top:5px; }
-    button { background:#0a7cff; color:#fff; border:none; cursor:pointer; margin-top:15px; font-weight:bold; }
-  </style>
+<meta charset="UTF-8">
+<title>StudyAid – Digital Service Upload</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; margin:0; }
+.container { max-width: 700px; background: #fff; padding: 25px; margin: auto; border-radius: 8px; box-shadow: 0 3px 8px rgba(0,0,0,0.05);}
+h2 { text-align: center; margin-bottom: 15px; }
+label { display:block; margin-top:12px; font-weight:bold; }
+input, select, textarea, button { width:100%; padding:10px; margin-top:5px; }
+textarea { resize: vertical; }
+.preview { background:#f0f0f0; padding:15px; margin-top:20px; border-radius:6px; }
+.price { font-size:18px; font-weight:bold; margin-top:5px; }
+button { background:#0a7cff; color:#fff; border:none; cursor:pointer; margin-top:15px; font-weight:bold; }
+.back-btn { background:#ddd; color:#000; margin-bottom:15px; }
+</style>
 </head>
 
 <body>
 <div class="container">
-  <h2>Digital Service Upload – CV Writing</h2>
-  <p><strong>Order ID:</strong> <span id="orderId"></span></p>
 
-  <!-- Customer Details -->
-  <label>Full Name</label>
-  <input type="text" id="fullname" placeholder="John Doe" required>
+<!-- Back Button -->
+<button class="back-btn" onclick="window.history.back()">← Back</button>
 
-  <label>Email Address</label>
-  <input type="email" id="email" placeholder="example@mail.com" required>
+<h2 id="pageTitle">Digital Service Upload</h2>
+<p><strong>Order ID:</strong> <span id="orderId"></span></p>
 
-  <label>WhatsApp Number</label>
-  <input type="text" id="whatsapp" placeholder="080..." required>
+<!-- Customer Details -->
+<label>Full Name</label>
+<input type="text" id="fullname" placeholder="John Doe" required>
 
-  <!-- CV Details -->
-  <label>Career Objective / Summary</label>
-  <textarea id="objective" rows="3" placeholder="Write a brief career summary (optional)"></textarea>
+<label>Email Address</label>
+<input type="email" id="email" placeholder="example@mail.com" required>
 
-  <label>Education</label>
-  <textarea id="education" rows="3" placeholder="School / Qualification / Year / Grade"></textarea>
+<label>WhatsApp Number</label>
+<input type="text" id="whatsapp" placeholder="080..." required>
 
-  <label>Work Experience</label>
-  <textarea id="experience" rows="3" placeholder="Company / Position / Duration / Key Achievements"></textarea>
+<!-- Dynamic Service Fields -->
+<div id="dynamicFields">
+  <!-- Fields inserted here by JS -->
+</div>
 
-  <label>Skills</label>
-  <input type="text" id="skills" placeholder="e.g. Python, Excel, Communication">
+<label>Additional Instructions / Special Requests</label>
+<textarea id="additional" rows="2" placeholder="Any style or job-targeted requirements"></textarea>
 
-  <label>Certifications / Courses (Optional)</label>
-  <textarea id="certifications" rows="2" placeholder="List any relevant certifications"></textarea>
+<label>Upload File (Optional)</label>
+<input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.jpg,.png">
 
-  <label>References (Optional)</label>
-  <textarea id="references" rows="2" placeholder="Name, Position, Contact or 'Available on request'"></textarea>
+<!-- Delivery -->
+<label>Delivery Speed</label>
+<select id="urgency" onchange="updatePreview()">
+  <option value="normal">Normal (2–3 Days)</option>
+  <option value="urgent">Urgent (Same Day)</option>
+</select>
 
-  <label>Additional Instructions / Special Requests</label>
-  <textarea id="additional" rows="2" placeholder="Any style or job-targeted requirements"></textarea>
+<!-- Order Preview -->
+<div class="preview">
+  <h3>Order Preview</h3>
+  <p><strong>Service:</strong> <span id="pService"></span></p>
+  <p><strong>Delivery:</strong> <span id="pDelivery"></span></p>
+  <p class="price">Total: ₦<span id="pPrice"></span></p>
+</div>
 
-  <label>Upload File (Optional)</label>
-  <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.jpg,.png">
-
-  <!-- Delivery -->
-  <label>Delivery Speed</label>
-  <select id="urgency" onchange="updatePreview()">
-    <option value="normal">Normal (2–3 Days)</option>
-    <option value="urgent">Urgent (Same Day)</option>
-  </select>
-
-  <!-- Order Preview -->
-  <div class="preview">
-    <h3>Order Preview</h3>
-    <p><strong>Service:</strong> <span id="pService"></span></p>
-    <p><strong>Delivery:</strong> <span id="pDelivery"></span></p>
-    <p class="price">Total: ₦<span id="pPrice"></span></p>
-  </div>
-
-  <button onclick="payNow()">Proceed to Payment</button>
+<button onclick="payNow()">Proceed to Payment</button>
 </div>
 
 <script>
-  // Generate Order ID
-  const orderId = "DS-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*9000+1000);
-  document.getElementById("orderId").innerText = orderId;
+// Generate Order ID
+const orderId = "DS-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*9000+1000);
+document.getElementById("orderId").innerText = orderId;
 
-  // Read service type from query params
-  const params = new URLSearchParams(window.location.search);
-  const service = params.get('service') || "CV Writing";
+// Detect service from URL
+const params = new URLSearchParams(window.location.search);
+const service = params.get('service') || "CV Writing";
+document.getElementById("pageTitle").innerText = service + " Upload";
+document.getElementById("pService").innerText = service;
 
-  function updatePreview(){
-    const urgency = document.getElementById("urgency").value;
-    let price = 2000; // base price
-    let delivery = "2–3 Days";
-    if(urgency === "urgent") { price = 3500; delivery = "Same Day"; }
+// Insert dynamic fields based on service
+const dynamicFields = document.getElementById("dynamicFields");
+if(service === "CV Writing"){
+  dynamicFields.innerHTML = `
+    <label>Career Objective / Summary</label>
+    <textarea id="objective" rows="3" placeholder="Write a brief career summary (optional)"></textarea>
 
-    document.getElementById("pService").innerText = service;
-    document.getElementById("pDelivery").innerText = delivery;
-    document.getElementById("pPrice").innerText = price;
+    <label>Education</label>
+    <textarea id="education" rows="3" placeholder="School / Qualification / Year / Grade"></textarea>
+
+    <label>Work Experience</label>
+    <textarea id="experience" rows="3" placeholder="Company / Position / Duration / Key Achievements"></textarea>
+
+    <label>Skills</label>
+    <input type="text" id="skills" placeholder="e.g. Python, Excel, Communication">
+
+    <label>Certifications / Courses (Optional)</label>
+    <textarea id="certifications" rows="2" placeholder="List any relevant certifications"></textarea>
+
+    <label>References (Optional)</label>
+    <textarea id="references" rows="2" placeholder="Name, Position, Contact or 'Available on request'"></textarea>
+  `;
+} else if(service === "Cover Letter"){
+  dynamicFields.innerHTML = `
+    <label>Target Job / Company</label>
+    <input type="text" id="targetJob" placeholder="e.g. Software Engineer at XYZ Corp">
+
+    <label>Work Experience / Background</label>
+    <textarea id="experience" rows="3" placeholder="Your relevant experience / achievements"></textarea>
+
+    <label>Attach CV (Optional)</label>
+    <input type="file" id="cvUpload" accept=".pdf,.doc,.docx">
+  `;
+} else if(service === "Official Letter or Proposal"){
+  dynamicFields.innerHTML = `
+    <label>Recipient Name / Organization</label>
+    <input type="text" id="recipient" placeholder="e.g. Mr. John Doe / XYZ Organization">
+
+    <label>Purpose / Content Overview</label>
+    <textarea id="purpose" rows="3" placeholder="Brief overview of the letter / proposal content"></textarea>
+
+    <label>Attach Reference Documents (Optional)</label>
+    <input type="file" id="refUpload" accept=".pdf,.doc,.docx,.jpg,.png">
+  `;
+}
+
+// Update order preview
+function updatePreview(){
+  const urgency = document.getElementById("urgency").value;
+  let price = 2000; // default base
+  let delivery = "2–3 Days";
+  if(urgency === "urgent") { price = 3500; delivery = "Same Day"; }
+  document.getElementById("pDelivery").innerText = delivery;
+  document.getElementById("pPrice").innerText = price;
+}
+updatePreview();
+
+// Dummy Pay / Validation
+function payNow(){
+  const fullname = document.getElementById("fullname").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const whatsapp = document.getElementById("whatsapp").value.trim();
+  if(!fullname || !email || !whatsapp){
+    alert("Please fill in all required fields!");
+    return;
   }
-
-  updatePreview();
-
-  function payNow(){
-    const fullname = document.getElementById("fullname").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const whatsapp = document.getElementById("whatsapp").value.trim();
-    if(!fullname || !email || !whatsapp){
-      alert("Please fill in all required fields!");
-      return;
-    }
-    alert(
-      "Order ID: " + orderId +
-      "\nService: " + service +
-      "\nDelivery: " + document.getElementById("pDelivery").innerText +
-      "\nTotal: ₦" + document.getElementById("pPrice").innerText +
-      "\n\n(This is where Paystack will be integrated)"
-    );
-  }
+  alert(
+    "Order ID: " + orderId +
+    "\nService: " + service +
+    "\nDelivery: " + document.getElementById("pDelivery").innerText +
+    "\nTotal: ₦" + document.getElementById("pPrice").innerText +
+    "\n\n(This is where Paystack will be integrated)"
+  );
+}
 </script>
-
 </body>
 </html>
