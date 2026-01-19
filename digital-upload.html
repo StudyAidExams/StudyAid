@@ -63,7 +63,7 @@ button { background:#0a7cff; color:#fff; border:none; cursor:pointer; margin-top
   <p class="price">Total: ₦<span id="pPrice"></span></p>
 </div>
 
-<button onclick="payNow()">Proceed to Payment</button>
+<button onclick="proceedToPayment()">Proceed to Payment</button>
 </div>
 
 <script>
@@ -134,22 +134,23 @@ function updatePreview(){
 }
 updatePreview();
 
-// Dummy Pay / Validation
-function payNow(){
+// Redirect to payment page with all order info
+function proceedToPayment(){
   const fullname = document.getElementById("fullname").value.trim();
   const email = document.getElementById("email").value.trim();
   const whatsapp = document.getElementById("whatsapp").value.trim();
+  const delivery = document.getElementById("pDelivery").innerText;
+  const total = document.getElementById("pPrice").innerText;
+
   if(!fullname || !email || !whatsapp){
     alert("Please fill in all required fields!");
     return;
   }
-  alert(
-    "Order ID: " + orderId +
-    "\nService: " + service +
-    "\nDelivery: " + document.getElementById("pDelivery").innerText +
-    "\nTotal: ₦" + document.getElementById("pPrice").innerText +
-    "\n\n(This is where Paystack will be integrated)"
-  );
+
+  // Build payment URL
+  const paymentURL = `payment.html?orderID=${encodeURIComponent(orderId)}&service=${encodeURIComponent(service)}&name=${encodeURIComponent(fullname)}&email=${encodeURIComponent(email)}&whatsapp=${encodeURIComponent(whatsapp)}&urgency=${encodeURIComponent(delivery)}&total=${encodeURIComponent(total)}`;
+
+  window.location.href = paymentURL;
 }
 </script>
 </body>
