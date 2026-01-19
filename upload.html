@@ -10,6 +10,7 @@
       font-family: Arial, sans-serif;
       background: #f4f6f8;
       padding: 20px;
+      margin:0;
     }
     .container {
       max-width: 600px;
@@ -31,19 +32,14 @@
       padding: 10px;
       margin-top: 5px;
     }
-    textarea {
-      resize: vertical;
-    }
+    textarea { resize: vertical; }
     .preview {
       background: #f0f0f0;
       padding: 15px;
       margin-top: 20px;
       border-radius: 6px;
     }
-    .price {
-      font-size: 18px;
-      font-weight: bold;
-    }
+    .price { font-size: 18px; font-weight: bold; }
     button {
       background: #0a7cff;
       color: #fff;
@@ -74,6 +70,9 @@
   <label>Question</label>
   <textarea id="question" rows="4" placeholder="Paste or describe the question" oninput="updatePreview()"></textarea>
 
+  <label>Upload Question Image (Optional)</label>
+  <input type="file" id="questionImage" accept="image/png, image/jpeg, image/jpg" onchange="updatePreview()">
+
   <label>Email Address</label>
   <input type="email" id="email" required>
 
@@ -90,6 +89,7 @@
     <h3>Order Preview</h3>
     <p><strong>Exam:</strong> <span id="pExam"></span></p>
     <p><strong>Subject:</strong> <span id="pSubject"></span></p>
+    <p><strong>Question:</strong> <span id="pQuestion"></span></p>
     <p><strong>Delivery:</strong> <span id="pDelivery"></span></p>
     <p class="price">Total: ₦<span id="pPrice"></span></p>
   </div>
@@ -98,7 +98,7 @@
 </div>
 
 <script>
-  // Generate Order ID
+  // Generate unique Order ID
   const orderId = "SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random() * 9000 + 1000);
   document.getElementById("orderId").innerText = orderId;
 
@@ -106,6 +106,8 @@
     const exam = document.getElementById("exam").value;
     const subject = document.getElementById("subject").value || "—";
     const urgency = document.getElementById("urgency").value;
+    const questionText = document.getElementById("question").value.trim();
+    const questionImage = document.getElementById("questionImage").files.length > 0;
 
     let price = 500;
     let delivery = "24–48 hours";
@@ -119,6 +121,11 @@
     document.getElementById("pSubject").innerText = subject;
     document.getElementById("pDelivery").innerText = delivery;
     document.getElementById("pPrice").innerText = price;
+
+    // Show question preview (text + optional image)
+    let qPreview = questionText ? questionText : "";
+    if (questionImage) qPreview += (qPreview ? " + " : "") + "[Image Attached]";
+    document.getElementById("pQuestion").innerText = qPreview || "—";
   }
 
   updatePreview();
@@ -128,11 +135,3 @@
       "Order ID: " + orderId +
       "\nProceeding to payment.\n\n(You will connect Paystack here)"
     );
-
-    // Later:
-    // window.location.href = "PAYSTACK_PAYMENT_LINK?reference=" + orderId;
-  }
-</script>
-
-</body>
-</html>
