@@ -7,20 +7,60 @@
 
   <style>
     body { font-family: Arial, sans-serif; background: #f4f6f8; color: #222; margin:0; }
-    header { background: #0a7cff; color: #fff; padding: 30px 20px; text-align: center; }
+    
+    /* Top Navigation */
+    nav {
+      background: #0a7cff;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 5px 10px;
+      font-weight: bold;
+    }
+    nav a:hover { text-decoration: underline; }
+
+    header {
+      background: #0a7cff;
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+    }
     header h1 { margin-bottom: 5px; }
     header p { font-size: 16px; opacity: 0.95; }
-    .btn { display: inline-block; margin: 10px 0; padding: 12px 22px; background: #ffcc00; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; }
+
     section { padding: 30px 20px; max-width: 900px; margin: auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px; }
     .card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
     .card h3 { margin-top: 0; }
+    .btn { display: inline-block; margin: 10px 0; padding: 12px 22px; background: #ffcc00; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; }
+    
     footer { background: #222; color: #ddd; text-align: center; padding: 20px; font-size: 14px; }
     footer a { color: #ffcc00; text-decoration: none; }
+
+    @media(max-width:600px){
+      nav { flex-direction: column; align-items: flex-start; }
+    }
   </style>
 </head>
 
 <body>
+
+<!-- Top Navigation -->
+<nav>
+  <div><strong>StudyAid</strong></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="services.html">Student Services</a>
+    <a href="digital-services.html">Professional Services</a>
+  </div>
+</nav>
 
 <header>
   <h1>StudyAid – Student Services</h1>
@@ -37,17 +77,17 @@
     </div>
     <div class="card">
       <h3>📄 Past Questions & Solutions (PDF)</h3>
-      <p>Download solved past questions for practice and revision.</p>
+      <p>Access fully solved past questions for WAEC, JAMB, and NECO. Each solution comes in <strong>easy-to-read PDF</strong> format, ready for practice and revision.</p>
       <a href="upload.html" class="btn">Get Started</a>
     </div>
     <div class="card">
       <h3>✏️ Assignment & Homework Help</h3>
-      <p>Submit your assignment and get clear solutions fast.</p>
+      <p>Submit your assignment and get clear solutions fast. You can type your question or upload an image.</p>
       <a href="upload.html" class="btn">Get Started</a>
     </div>
     <div class="card">
       <h3>⏱️ Urgent Same-Day Support</h3>
-      <p>Need answers quickly? Choose our urgent delivery option.</p>
+      <p>In a rush? Submit your question and get answers delivered the same day via Email & WhatsApp. Extra urgency fee applies.</p>
       <a href="upload.html" class="btn">Get Started</a>
     </div>
   </div>
@@ -55,7 +95,7 @@
 
 <footer>
   <p>StudyAid provides <strong>study assistance and explanations</strong> for learning purposes.</p>
-  <p>© 2026 StudyAid • <a href="obaromichael47@gmail.com">Email Support</a></p>
+  <p>© 2026 StudyAid • <a href="mailto:studyaid@email.com">Email Support</a></p>
 </footer>
 
 </body>
