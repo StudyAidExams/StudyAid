@@ -15,25 +15,47 @@
     header {
       background: #0a7cff;
       color: #fff;
-      padding: 40px 20px;
-      text-align: center;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-container img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #fff;
+      padding: 5px;
     }
     header h1 {
-      margin-bottom: 10px;
+      margin: 0;
+      font-size: 28px;
     }
     header p {
-      font-size: 16px;
+      font-size: 14px;
       opacity: 0.95;
+      margin: 5px 0 0 0;
     }
     .btn {
       display: inline-block;
-      margin: 10px;
+      margin: 10px 5px;
       padding: 12px 22px;
       background: #fff;
       color: #0a7cff;
       text-decoration: none;
       font-weight: bold;
       border-radius: 5px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      opacity: 0.85;
     }
     .btn.primary {
       background: #ffcc00;
@@ -54,6 +76,9 @@
       padding: 20px;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .card h3 {
       margin-top: 0;
@@ -69,17 +94,25 @@
       color: #ffcc00;
       text-decoration: none;
     }
+    ul {
+      padding-left: 20px;
+    }
   </style>
 </head>
 
 <body>
 
 <header>
-  <h1>StudyAid</h1>
-  <p>WAEC • JAMB • NECO Study Assistance & Explanations</p>
-
-  <a href="upload.html" class="btn primary">Upload Exam Question</a>
-  <a href="#services" class="btn">View Services</a>
+  <div class="logo-container">
+    <img src="logo.png" alt="StudyAid Logo">
+    <div>
+      <h1>StudyAid</h1>
+      <p>WAEC • JAMB • NECO Study Assistance & Explanations</p>
+    </div>
+  </div>
+  <div>
+    <a href="#services" class="btn">View Services</a>
+  </div>
 </header>
 
 <section>
@@ -102,7 +135,6 @@
 
 <section id="services">
   <h2>Our Services</h2>
-
   <div class="grid">
     <div class="card">
       <h3>🎓 Student Exam Help</h3>
@@ -112,7 +144,7 @@
         <li>Assignment & homework help</li>
         <li>Urgent same-day support</li>
       </ul>
-      <a href="upload.html" class="btn primary">Get Started</a>
+      <a href="services.html" class="btn primary">Get Started</a>
     </div>
 
     <div class="card">
@@ -123,16 +155,14 @@
         <li>Official Letters & Proposals</li>
         <li>Simple Website Setup</li>
       </ul>
-      <p><strong>Request via WhatsApp</strong></p>
+      <a href="digital-services.html" class="btn primary">Get Started</a>
     </div>
   </div>
 </section>
 
 <section>
   <h2>Need Help?</h2>
-  <p>
-    Chat with us directly on WhatsApp for enquiries or custom requests.
-  </p>
+  <p>Chat with us directly on WhatsApp for enquiries or custom requests.</p>
   <a
     href="https://wa.me/2349091156097"
     class="btn primary"
@@ -147,7 +177,7 @@
     StudyAid provides <strong>study assistance and explanations</strong> for learning purposes.
   </p>
   <p>
-    © 2026 StudyAid • <a href="obaromichael47@email.com">Email Support</a>
+    © 2026 StudyAid • <a href="mailto:obaromichael47@gmail.com">Email Support</a>
   </p>
 </footer>
 
