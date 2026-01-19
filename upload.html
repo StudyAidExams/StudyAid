@@ -32,6 +32,7 @@
       <option>WAEC</option>
       <option>JAMB</option>
       <option>NECO</option>
+      <option>Other</option>
     </select>
 
     <label>Subject</label>
@@ -55,8 +56,8 @@
 
   <label>Delivery Speed</label>
   <select id="urgency" onchange="updatePreview()">
-    <option value="normal">Normal (24–48 hrs)</option>
-    <option value="urgent">Urgent (Same Day)</option>
+    <option value="normal">Normal (10–20 mins)</option>
+    <option value="urgent">Urgent (5 mins)</option>
   </select>
 
   <div class="preview">
@@ -84,8 +85,8 @@
   function updatePreview(){
     const urgency = document.getElementById("urgency").value;
     let price = 500;
-    let delivery = "24–48 hours";
-    if(urgency === "urgent") { price = 1500; delivery="Same Day"; }
+    let delivery = "10–20 mins";
+    if(urgency === "urgent") { price = 800; delivery="5 mins"; }
 
     document.getElementById("pDelivery").innerText = delivery;
     document.getElementById("pPrice").innerText = price;
