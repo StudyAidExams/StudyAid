@@ -1,117 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>StudyAid – E-Books</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>StudyAid – E-Book Upload</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- AdSense Verification Script -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2965189275511617"
-     crossorigin="anonymous"></script>
-
-  <style>
-    body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; margin:0; }
-    .container { max-width: 600px; background: #fff; padding: 20px; margin: auto; border-radius: 8px; }
-    h2 { text-align: center; margin-bottom: 15px; }
-    label { display:block; margin-top:12px; font-weight:bold; }
-    input, select, textarea, button { width:100%; padding:10px; margin-top:5px; border-radius:5px; border:1px solid #ccc; }
-    textarea { resize: vertical; }
-    .preview { background:#f0f0f0; padding:15px; margin-top:20px; border-radius:6px; }
-    .price { font-size:18px; font-weight:bold; }
-    button { background:#0a7cff; color:#fff; border:none; cursor:pointer; margin-top:15px; font-weight:bold; }
-    button.back-btn { background:#ddd; color:#000; margin-bottom:15px; }
-  </style>
+<style>
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f6f8;
+  margin:0;
+  padding:20px;
+}
+.container{
+  max-width:600px;
+  background:#fff;
+  padding:20px;
+  margin:auto;
+  border-radius:8px;
+}
+h2{text-align:center}
+label{display:block;margin-top:12px;font-weight:bold}
+input,select,textarea,button{
+  width:100%;
+  padding:10px;
+  margin-top:5px;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+textarea{resize:vertical}
+.preview{
+  background:#f0f0f0;
+  padding:15px;
+  margin-top:20px;
+  border-radius:6px;
+}
+.price{font-size:18px;font-weight:bold}
+button{
+  background:#0a7cff;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  margin-top:15px;
+  font-weight:bold;
+}
+.back-btn{
+  background:#ddd;
+  color:#000;
+  margin-bottom:15px;
+}
+</style>
 </head>
-
 <body>
 
 <div class="container">
-  <button class="back-btn" onclick="window.history.back()">← Back</button>
-  <h2>E-book purchase section</h2>
-  <p><strong>Order ID:</strong> <span id="orderId"></span></p>
+<button class="back-btn" onclick="window.history.back()">←</button>
 
-  <!-- Exam / question section -->
-  <div id="examSection">
-    <label>Purchase item</label>
-    <select id="purchase" onchange="updatePreview()">
-      <option>E-BOOKS</option>
-      <option>Other</option>
-    </select>
+<h2>E-Book Order</h2>
+<p><strong>Order ID:</strong> <span id="orderId"></span></p>
 
-  <label>Email Address</label>
-  <input type="email" id="email" required>
+<label>Select Book</label>
+<select id="book" onchange="updatePreview()">
+  <option value="">-- Choose --</option>
+  <option>Rich Dad Poor Dad</option>
+  <option>48 Laws of Power</option>
+  <option>Think and Grow Rich</option>
+  <option>The Psychology of Money</option>
+  <option>Other (Write below)</option>
+</select>
 
-  <label>WhatsApp Number</label>
-  <input type="text" id="whatsapp" placeholder="080..." required>
+<label>If not listed, write book name</label>
+<textarea id="customBook" placeholder="Enter book name here" oninput="updatePreview()"></textarea>
 
-  <label>Delivery Speed</label>
-  <select id="urgency" onchange="updatePreview()">
-    <option value="normal">Normal (10–20 mins)</option>
-    <option value="urgent">Urgent (5 mins)</option>
-  </select>
+<label>Email Address</label>
+<input type="email" id="email" required>
 
-  <div class="preview">
-    <h3>Order Preview</h3>
-    <p><strong>Order:</strong> <span id="pExam"></span></p>
-    <p><strong>Subject:</strong> <span id="pSubject"></span></p>
-    <p><strong>Question:</strong> <span id="pQuestion"></span></p>
-    <p><strong>Delivery:</strong> <span id="pDelivery"></span></p>
-    <p class="price">Total: ₦<span id="pPrice"></span></p>
-  </div>
+<label>WhatsApp Number</label>
+<input type="text" id="whatsapp" placeholder="080..." required>
 
-  <button onclick="proceedToPayment()">Proceed to Payment</button>
+<label>Delivery Speed</label>
+<select id="urgency" onchange="updatePreview()">
+  <option value="normal">Normal (10–20 mins)</option>
+  <option value="urgent">Urgent (5 mins)</option>
+</select>
+
+<div class="preview">
+<h3>Order Preview</h3>
+<p><strong>Book:</strong> <span id="pBook">—</span></p>
+<p><strong>Delivery:</strong> <span id="pDelivery">—</span></p>
+<p class="price">Total: ₦<span id="pPrice">0</span></p>
+</div>
+
+<button onclick="proceedToPayment()">Proceed to Payment</button>
 </div>
 
 <script>
-  // Generate unique Order ID
-  const orderId = "SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*9000+1000);
-  document.getElementById("orderId").innerText = orderId;
+// Generate unique order ID
+const orderId =
+"SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*9000+1000);
+document.getElementById("orderId").innerText = orderId;
 
-  const examSelect = document.getElementById("exam");
-  const subjectField = document.getElementById("subject");
-  const questionField = document.getElementById("question");
-  const imageField = document.getElementById("questionImage");
+// Update preview info
+function updatePreview(){
+  const bookSelect = document.getElementById("book").value;
+  const customBook = document.getElementById("customBook").value.trim();
+  const urgency = document.getElementById("urgency").value;
 
-  function updatePreview(){
-    const urgency = document.getElementById("urgency").value;
-    let price = 500;
-    let delivery = "10–20 mins";
-    if(urgency === "urgent") { price = 800; delivery="5 mins"; }
+  const bookName = customBook || bookSelect || "—";
+  let price = 500;
+  let delivery = "10–20 mins";
 
-    document.getElementById("pDelivery").innerText = delivery;
-    document.getElementById("pPrice").innerText = price;
+  if(urgency==="urgent"){ price = 800; delivery="5 mins"; }
 
-    const exam = examSelect.value || "—";
-    const subject = subjectField.value || "—";
-    let qPreview = questionField.value.trim();
-    if(imageField.files.length>0) qPreview += (qPreview ? " + " : "") + "[Image Attached]";
-    document.getElementById("pExam").innerText = exam;
-    document.getElementById("pSubject").innerText = subject;
-    document.getElementById("pQuestion").innerText = qPreview || "—";
+  document.getElementById("pBook").innerText = bookName;
+  document.getElementById("pDelivery").innerText = delivery;
+  document.getElementById("pPrice").innerText = price;
+}
+updatePreview();
+
+// Button: proceed to payment
+function proceedToPayment(){
+  const email = document.getElementById("email").value.trim();
+  const whatsapp = document.getElementById("whatsapp").value.trim();
+  const book = document.getElementById("pBook").innerText;
+  const delivery = document.getElementById("pDelivery").innerText;
+  const total = document.getElementById("pPrice").innerText;
+
+  if(!email || !whatsapp || book==="—"){
+    alert("Please complete all required fields!");
+    return;
   }
-  updatePreview();
 
-  function proceedToPayment(){
-    const fullname = document.getElementById("fullname").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const whatsapp = document.getElementById("whatsapp").value.trim();
-    const delivery = document.getElementById("pDelivery").innerText;
-    const total = document.getElementById("pPrice").innerText;
-    const exam = document.getElementById("pExam").innerText;
-    const subject = document.getElementById("pSubject").innerText;
-    const question = document.getElementById("pQuestion").innerText;
-
-    if(!fullname || !email || !whatsapp){
-      alert("Please fill in all required fields!");
-      return;
-    }
-
-    // Redirect to payment.html with all details in URL
-    const paymentURL = `payment.html?orderID=${encodeURIComponent(orderId)}&service=${encodeURIComponent(exam)}&subject=${encodeURIComponent(subject)}&question=${encodeURIComponent(question)}&name=${encodeURIComponent(fullname)}&email=${encodeURIComponent(email)}&whatsapp=${encodeURIComponent(whatsapp)}&urgency=${encodeURIComponent(delivery)}&total=${encodeURIComponent(total)}`;
-
-    window.location.href = paymentURL;
-  }
+  // Redirect to payment.html with all details
+  const url = `payment.html?orderID=${encodeURIComponent(orderId)}&item=${encodeURIComponent(book)}&email=${encodeURIComponent(email)}&whatsapp=${encodeURIComponent(whatsapp)}&delivery=${encodeURIComponent(delivery)}&total=${encodeURIComponent(total)}`;
+  window.location.href = url;
+}
 </script>
 
 </body>
-    </html>
+</html>
