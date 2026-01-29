@@ -59,8 +59,11 @@ button{
 <h2>E-Book Order</h2>
 <p><strong>Order ID:</strong> <span id="orderId"></span></p>
 
-<label>Book Name</label>
-<input type="text" id="bookName" placeholder="Enter book name" required>
+<label>Purchase Item</label>
+<select id="purchase" onchange="updatePreview()">
+  <option>E-Books</option>
+  <option>Other</option>
+</select>
 
 <label>Email Address</label>
 <input type="email" id="email" required>
@@ -76,7 +79,7 @@ button{
 
 <div class="preview">
 <h3>Order Preview</h3>
-<p><strong>Book:</strong> <span id="pBook">—</span></p>
+<p><strong>Item:</strong> <span id="pItem">—</span></p>
 <p><strong>Delivery:</strong> <span id="pDelivery">—</span></p>
 <p class="price">Total: ₦<span id="pPrice">0</span></p>
 </div>
@@ -92,14 +95,14 @@ document.getElementById("orderId").innerText = orderId;
 
 // Update preview info
 function updatePreview(){
-  const bookName = document.getElementById("bookName").value.trim() || "—";
+  const item = document.getElementById("purchase").value;
   const urgency = document.getElementById("urgency").value;
 
   let price = 500;
   let delivery = "10–20 mins";
   if(urgency==="urgent"){ price = 800; delivery="5 mins"; }
 
-  document.getElementById("pBook").innerText = bookName;
+  document.getElementById("pItem").innerText = item;
   document.getElementById("pDelivery").innerText = delivery;
   document.getElementById("pPrice").innerText = price;
 }
@@ -109,16 +112,16 @@ updatePreview();
 function proceedToPayment(){
   const email = document.getElementById("email").value.trim();
   const whatsapp = document.getElementById("whatsapp").value.trim();
-  const book = document.getElementById("pBook").innerText;
+  const item = document.getElementById("pItem").innerText;
   const delivery = document.getElementById("pDelivery").innerText;
   const total = document.getElementById("pPrice").innerText;
 
-  if(!book || book==="—" || !email || !whatsapp){
+  if(!item || item==="—" || !email || !whatsapp){
     alert("Please complete all required fields!");
     return;
   }
 
-  const url = `payment.html?orderID=${encodeURIComponent(orderId)}&item=${encodeURIComponent(book)}&email=${encodeURIComponent(email)}&whatsapp=${encodeURIComponent(whatsapp)}&delivery=${encodeURIComponent(delivery)}&total=${encodeURIComponent(total)}`;
+  const url = `payment.html?orderID=${encodeURIComponent(orderId)}&item=${encodeURIComponent(item)}&email=${encodeURIComponent(email)}&whatsapp=${encodeURIComponent(whatsapp)}&delivery=${encodeURIComponent(delivery)}&total=${encodeURIComponent(total)}`;
   window.location.href = url;
 }
 </script>
