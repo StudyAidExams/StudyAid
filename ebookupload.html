@@ -93,9 +93,38 @@ const orderId =
 "SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*9000+1000);
 document.getElementById("orderId").innerText = orderId;
 
+// Read URL parameter for pre-selected book
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+// Preselect book if passed from ebooks.html
+const preSelectedBook = getQueryParam("book");
+const purchaseSelect = document.getElementById("purchase");
+if(preSelectedBook){
+  let optionExists = false;
+  for(let i=0;i<purchaseSelect.options.length;i++){
+    if(purchaseSelect.options[i].value === preSelectedBook){
+      purchaseSelect.selectedIndex = i;
+      optionExists = true;
+      break;
+    }
+  }
+  if(!optionExists){
+    // If the book isn't in the dropdown, select "Other"
+    for(let i=0;i<purchaseSelect.options.length;i++){
+      if(purchaseSelect.options[i].value==="Other"){
+        purchaseSelect.selectedIndex = i;
+        break;
+      }
+    }
+  }
+}
+
 // Update preview info
 function updatePreview(){
-  const item = document.getElementById("purchase").value;
+  const item = preSelectedBook || purchaseSelect.value;
   const urgency = document.getElementById("urgency").value;
 
   let price = 500;
