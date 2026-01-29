@@ -80,14 +80,14 @@ h2{text-align:center}
 function selectBook(el){
   const book = el.getAttribute("data-book");
   window.location.href =
-    "upload.html?type=ebook&item=" + encodeURIComponent(book);
+    "ebookupload.html?type=ebook&item=" + encodeURIComponent(book);
 }
 
 function requestBook(){
   const book = prompt("Enter the name of the book you want:");
   if(book && book.trim().length >= 3){
     window.location.href =
-      "upload.html?type=ebook&item=" + encodeURIComponent(book.trim());
+      "ebookupload.html?type=ebook&item=" + encodeURIComponent(book.trim());
   }
 }
 
