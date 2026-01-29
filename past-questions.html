@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Past Questions – Select Exam</title>
+<title>Past Questions & E-Books</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- AdSense Verification Script -->
@@ -11,23 +11,13 @@
 
 <style>
 body{
-  font-family:Arial,sans-serif;
+  font-family: Arial, sans-serif;
   background:#f4f6f8;
   padding:20px;
   margin:0;
 }
-h2{text-align:center}
-
-.search-box{
-  max-width:400px;
-  margin:20px auto;
-}
-.search-box input{
-  width:100%;
-  padding:12px;
-  font-size:16px;
-  border-radius:8px;
-  border:1px solid #ccc;
+h2{
+  text-align:center;
 }
 
 .exam-list{
@@ -35,99 +25,61 @@ h2{text-align:center}
   justify-content:center;
   flex-wrap:wrap;
   gap:15px;
-  margin-top:20px;
+  margin-top:30px;
 }
 
 .exam-card{
   background:#fff;
-  padding:20px;
+  padding:22px;
   border-radius:10px;
   width:220px;
   text-align:center;
   box-shadow:0 2px 6px rgba(0,0,0,0.1);
   cursor:pointer;
   transition:.2s;
+  font-weight:600;
 }
 .exam-card:hover{
   transform:scale(1.05);
   box-shadow:0 4px 10px rgba(0,0,0,0.15);
 }
 
-.request-card{
+.ebook{
   background:#eef2ff;
-  border:2px dashed #6366f1;
-}
-.request-card small{
-  display:block;
-  margin-top:6px;
-  color:#555;
+  border:2px solid #6366f1;
 }
 </style>
 </head>
 <body>
 
-<h2>Select Your Exam</h2>
+<h2>Select What You Want</h2>
 
-<div class="search-box">
-  <input type="text" id="search" placeholder="Search exam (WAEC, JAMB, NECO…)" onkeyup="filterExams()">
-</div>
+<div class="exam-list">
 
-<div class="exam-list" id="examList">
-
-  <div class="exam-card" data-exam="WAEC Past Questions" onclick="selectExam(this)">
+  <div class="exam-card" onclick="goToUpload('WAEC Past Questions')">
     WAEC Past Questions
   </div>
 
-  <div class="exam-card" data-exam="JAMB Past CBT Questions" onclick="selectExam(this)">
+  <div class="exam-card" onclick="goToUpload('JAMB Past CBT Questions')">
     JAMB Past CBT Questions
   </div>
 
-  <div class="exam-card" data-exam="NECO Past Questions" onclick="selectExam(this)">
+  <div class="exam-card" onclick="goToUpload('NECO Past Questions')">
     NECO Past Questions
   </div>
 
-  <!-- Custom request -->
-  <div class="exam-card request-card" id="requestCard" onclick="requestExam()" style="display:none;">
-    ➕ Request Another Exam
-    <small>Didn’t find what you need?</small>
+  <div class="exam-card ebook" onclick="goToUpload('E-Books')">
+    📚 Educational & Business E-Books
   </div>
 
 </div>
 
 <script>
-function selectExam(el){
-  const exam = el.getAttribute("data-exam");
+function goToUpload(type){
   window.location.href =
-    "upload.html?type=pq&exam=" + encodeURIComponent(exam);
-}
-
-function requestExam(){
-  const exam = prompt("Enter the exam name you want:");
-  if(exam && exam.trim().length >= 3){
-    window.location.href =
-      "upload.html?type=pq&exam=" + encodeURIComponent(exam.trim());
-  }
-}
-
-function filterExams(){
-  const q = document.getElementById("search").value.toLowerCase();
-  const exams = document.querySelectorAll(".exam-card[data-exam]");
-  let found = false;
-
-  exams.forEach(e=>{
-    const name = e.dataset.exam.toLowerCase();
-    if(name.includes(q)){
-      e.style.display = "block";
-      found = true;
-    }else{
-      e.style.display = "none";
-    }
-  });
-
-  document.getElementById("requestCard").style.display =
-    found ? "none" : "block";
+    "upload.html?type=order&item=" + encodeURIComponent(type);
 }
 </script>
 
 </body>
-    </html>
+</html>
