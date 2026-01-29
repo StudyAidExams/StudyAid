@@ -68,7 +68,7 @@ h2{
     NECO Past Questions
   </div>
 
-  <div class="exam-card ebook" onclick="goToUpload('E-Books')">
+  <div class="exam-card ebook" onclick="goToEbookUpload()">
     📚 Educational & Business E-Books
   </div>
 
@@ -78,6 +78,11 @@ h2{
 function goToUpload(type){
   window.location.href =
     "upload.html?type=order&item=" + encodeURIComponent(type);
+}
+
+// Separate redirect for E-Books
+function goToEbookUpload(){
+  window.location.href = "ebookupload.html";
 }
 </script>
 
