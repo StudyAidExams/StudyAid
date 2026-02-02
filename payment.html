@@ -5,15 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
 <title>StudyAid – Payment</title>  
 
-<!-- AdSense Verification Script -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2965189275511617"
-     crossorigin="anonymous"></script>
+crossorigin="anonymous"></script>
 
 <style>  
 body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 20px; margin:0; }  
 .container { max-width: 700px; background: #fff; padding: 25px; margin: auto; border-radius: 8px; box-shadow: 0 3px 8px rgba(0,0,0,0.05);}  
 h2 { text-align: center; margin-bottom: 15px; }  
-p { margin: 10px 0; }  
+p { margin: 10px 0; white-space: pre-line; }  
 button { width:100%; padding:12px; margin-top:15px; border:none; border-radius:5px; font-weight:bold; cursor:pointer; }  
 .back-btn { background:#ddd; color:#000; margin-bottom:15px; }  
 .preview, .bank-details { padding:15px; margin-top:20px; border-radius:6px; background:#f0f0f0; }  
@@ -25,24 +24,23 @@ button.paid { background:#4CAF50; color:#fff; }
 <body>  
   
 <div class="container">  
-<!-- Back Button -->  
 <button class="back-btn" onclick="window.history.back()">← Back</button>  
   
 <h2>Order Preview</h2>  
   
-<div class="preview" id="orderPreview">  
+<div class="preview">  
   <p id="previewText"></p>  
   <button class="continue" id="continueBtn">Continue</button>  
 </div>  
   
 <div class="bank-details" id="bankDetails">  
   <h3>Bank Payment Details</h3>  
-  <p>  
-    Bank Name: OPay<br>  
-    Account Name: Michael Obaro<br>  
-    Account Number: 6142529254<br>  
-    Reference: <span id="orderIDBank"></span><br>  
-    Amount: ₦<span id="orderTotalBank"></span>  
+  <p>
+Bank Name: OPay  
+Account Name: Michael Obaro  
+Account Number: 6142529254  
+Reference: <span id="orderIDBank"></span>  
+Amount: ₦<span id="orderTotalBank"></span>
   </p>  
   <button class="paid" id="paidBtn">I’ve Paid</button>  
 </div>  
@@ -50,49 +48,42 @@ button.paid { background:#4CAF50; color:#fff; }
 </div>  
   
 <script>  
-// Get order details from URL  
-const urlParams = new URLSearchParams(window.location.search);  
-const orderID = urlParams.get('orderID') || 'N/A';  
-const service = urlParams.get('service') || 'N/A';  
-const name = urlParams.get('name') || 'N/A';  
-const email = urlParams.get('email') || 'N/A';  
-const whatsapp = urlParams.get('whatsapp') || 'N/A';  
-const urgency = urlParams.get('urgency') || 'Normal';  
-const total = urlParams.get('total') || '0';  
-  
-// Show order preview  
-document.getElementById('previewText').innerText = `  
-Order ID: ${orderID}  
-Service: ${service}  
-Delivery: ${urgency}  
-Total: ₦${total}  
-Name: ${name}  
-Email: ${email}  
-WhatsApp: ${whatsapp}  
-`;  
-  
-// Continue button → show bank details  
-document.getElementById('continueBtn').addEventListener('click', () => {  
-  document.getElementById('bankDetails').style.display = 'block';  
-  document.getElementById('orderIDBank').innerText = orderID;  
-  document.getElementById('orderTotalBank').innerText = total;  
-  document.getElementById('bankDetails').scrollIntoView({behavior: "smooth"});  
-});  
-  
-// I’ve Paid button → WhatsApp redirect  
-document.getElementById('paidBtn').addEventListener('click', () => {  
-  const waMessage = `Hello Michael, I have paid for my order.  
-Order ID: ${orderID}  
-Service: ${service}  
-Delivery: ${urgency}  
-Total: ₦${total}  
-My Name: ${name}  
-Email: ${email}  
-WhatsApp: ${whatsapp}`;  
-  
-  const waLink = `https://wa.me/2349091156097?text=` + encodeURIComponent(waMessage);  
-  window.open(waLink, "_blank");  
-});  
+const params = new URLSearchParams(window.location.search);
+
+const orderID = params.get('orderID') || 'N/A';
+const item = params.get('item') || 'N/A';
+const delivery = params.get('delivery') || 'N/A';
+const total = params.get('total') || '0';
+const email = params.get('email') || 'N/A';
+const whatsapp = params.get('whatsapp') || 'N/A';
+
+document.getElementById('previewText').innerText =
+`Order ID: ${orderID}
+Service: ${item}
+Delivery: ${delivery}
+Total: ₦${total}
+Email: ${email}
+WhatsApp: ${whatsapp}`;
+
+document.getElementById('continueBtn').onclick = () => {
+  document.getElementById('bankDetails').style.display = 'block';
+  document.getElementById('orderIDBank').innerText = orderID;
+  document.getElementById('orderTotalBank').innerText = total;
+  document.getElementById('bankDetails').scrollIntoView({behavior:"smooth"});
+};
+
+document.getElementById('paidBtn').onclick = () => {
+  const msg =
+`Hello Michael, I have paid for my order.
+Order ID: ${orderID}
+Service: ${item}
+Delivery: ${delivery}
+Total: ₦${total}
+Email: ${email}
+WhatsApp: ${whatsapp}`;
+
+  window.open("https://wa.me/2349091156097?text=" + encodeURIComponent(msg));
+};
 </script>  
   
 </body>  
