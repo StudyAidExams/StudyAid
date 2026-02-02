@@ -117,9 +117,9 @@ function updatePreview(){
   const item = preSelectedBook ? preSelectedBook : purchaseSelect.value;
   const urgency = document.getElementById("urgency").value;
 
-  let price = 500;
+  let price = 1000;
   let delivery = "10–20 mins";
-  if(urgency==="urgent"){ price = 800; delivery="5 mins"; }
+  if(urgency==="urgent"){ price = 1500; delivery="5 mins"; }
 
   document.getElementById("pItem").innerText = item;
   document.getElementById("pDelivery").innerText = delivery;
