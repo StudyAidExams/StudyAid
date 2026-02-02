@@ -93,38 +93,28 @@ const orderId =
 "SA-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*9000+1000);
 document.getElementById("orderId").innerText = orderId;
 
-// Read URL parameter for pre-selected book
+// Read URL parameter
 function getQueryParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 }
 
-// Preselect book if passed from ebooks.html
-const preSelectedBook = getQueryParam("book");
+// FIXED: read correct parameter from ebooks.html
+const preSelectedBook = getQueryParam("item");
+
 const purchaseSelect = document.getElementById("purchase");
 if(preSelectedBook){
-  let optionExists = false;
   for(let i=0;i<purchaseSelect.options.length;i++){
-    if(purchaseSelect.options[i].value === preSelectedBook){
+    if(purchaseSelect.options[i].value==="Other"){
       purchaseSelect.selectedIndex = i;
-      optionExists = true;
       break;
-    }
-  }
-  if(!optionExists){
-    // If the book isn't in the dropdown, select "Other"
-    for(let i=0;i<purchaseSelect.options.length;i++){
-      if(purchaseSelect.options[i].value==="Other"){
-        purchaseSelect.selectedIndex = i;
-        break;
-      }
     }
   }
 }
 
-// Update preview info
+// Update preview
 function updatePreview(){
-  const item = preSelectedBook || purchaseSelect.value;
+  const item = preSelectedBook ? preSelectedBook : purchaseSelect.value;
   const urgency = document.getElementById("urgency").value;
 
   let price = 500;
@@ -137,7 +127,7 @@ function updatePreview(){
 }
 updatePreview();
 
-// Button: proceed to payment
+// Proceed to payment
 function proceedToPayment(){
   const email = document.getElementById("email").value.trim();
   const whatsapp = document.getElementById("whatsapp").value.trim();
