@@ -1,223 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>StudyAid – Cinematic</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>StudyAid – WAEC, JAMB & NECO Help</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-*{box-sizing:border-box}
+  <!-- Google AdSense Verification -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2965189275511617" crossorigin="anonymous"></script>
 
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  color:#fff;
-  background:#02030a;
-  overflow-x:hidden;
-}
-
-/* moving gradient background */
-.bg{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:linear-gradient(45deg,#02030a,#071f3a,#0a0f25,#001a2e);
-  background-size:400% 400%;
-  animation:bgMove 12s infinite linear;
-}
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-/* cinematic sections */
-section,header{
-  min-height:90vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:40px 20px;
-  text-align:center;
-  opacity:0;
-  transform:translateY(60px) scale(.98);
-  transition:1.2s cubic-bezier(.16,1,.3,1);
-}
-
-section.active,header.active{
-  opacity:1;
-  transform:translateY(0) scale(1);
-}
-
-/* hero */
-h1{
-  font-size:52px;
-  margin:0;
-  text-shadow:0 0 25px #0ff;
-}
-
-.typing{
-  margin-top:10px;
-  font-size:18px;
-  opacity:.85;
-  height:24px;
-}
-
-/* glass cards */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
-  max-width:1000px;
-  width:100%;
-}
-
-.card{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:16px;
-  padding:25px;
-  transition:.4s;
-  box-shadow:0 0 25px rgba(0,255,255,.15);
-}
-
-.card:hover{
-  transform:translateY(-12px) scale(1.03);
-  box-shadow:0 0 45px rgba(0,255,255,.6);
-}
-
-/* neon button */
-.btn{
-  margin-top:20px;
-  padding:12px 26px;
-  border-radius:8px;
-  background:#0af;
-  color:#fff;
-  text-decoration:none;
-  font-weight:bold;
-  box-shadow:0 0 20px #0af;
-  transition:.3s;
-}
-
-.btn:hover{
-  background:#08f;
-  box-shadow:0 0 35px #0ff;
-}
-
-/* app style fade transition */
-.page{
-  animation:pageEnter .8s ease;
-}
-@keyframes pageEnter{
-  from{opacity:0; transform:scale(.98)}
-  to{opacity:1; transform:scale(1)}
-}
-
-footer{
-  text-align:center;
-  padding:30px;
-  opacity:.7;
-}
-</style>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
-
-<body class="page">
-
-<div class="bg"></div>
-
-<audio id="hoverSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_1b1c3d8d0e.mp3"></audio>
+<body>
 
 <header>
-<h1>StudyAid</h1>
-<div class="typing" id="typing"></div>
-<a href="#services" class="btn">Explore Services</a>
+  <div class="logo-container">
+    <img src="https://i.postimg.cc/m2SYspmr/IMG-20260119-174916-789.jpg" alt="StudyAid Logo">
+    <div>
+      <h1>StudyAid</h1>
+      <p>WAEC • JAMB • NECO Study Assistance & Explanations</p>
+    </div>
+  </div>
+  <div>
+    <a href="#services" class="btn">View Services</a>
+  </div>
 </header>
 
-<section>
-<h2>How StudyAid Helps</h2>
-<div class="grid">
+<section class="hero">
+  <h2 class="typing-text" data-text="Learn. Understand. Succeed.">Learn. Understand. Succeed.</h2>
+</section>
 
-<div class="card">
-<h3>📘 Exam Explanations</h3>
-<p>Clear breakdowns that make hard questions simple.</p>
-</div>
-
-<div class="card">
-<h3>⚡ Urgent Support</h3>
-<p>Fast same-day help when deadlines hit.</p>
-</div>
-
-<div class="card">
-<h3>🔒 Private Delivery</h3>
-<p>No account needed. Instant secure service.</p>
-</div>
-
-</div>
+<section class="info-section">
+  <h2>How StudyAid Helps You</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>📘 Exam Question Explanations</h3>
+      <p>Clear, step-by-step explanations to help you understand WAEC, JAMB and NECO questions.</p>
+    </div>
+    <div class="card">
+      <h3>⏱️ Normal & Urgent Options</h3>
+      <p>Choose normal delivery or urgent same-day help depending on your deadline.</p>
+    </div>
+    <div class="card">
+      <h3>🔒 No Registration Needed</h3>
+      <p>Upload your question, make payment and receive your solution via Email & WhatsApp.</p>
+    </div>
+  </div>
 </section>
 
 <section id="services">
-<h2>Services</h2>
-<div class="grid">
-
-<div class="card">
-<h3>🎓 Student Help</h3>
-<p>WAEC • JAMB • NECO • PDFs • Homework</p>
-<a href="services.html" class="btn">Get Started</a>
-</div>
-
-<div class="card">
-<h3>💼 Digital Services</h3>
-<p>CVs • Letters • Websites</p>
-<a href="digital-services.html" class="btn">Get Started</a>
-</div>
-
-</div>
+  <h2>Our Services</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>🎓 Student Exam Help</h3>
+      <ul>
+        <li>WAEC / JAMB / NECO explanations</li>
+        <li>Past questions & solutions (PDF)</li>
+        <li>Assignment & homework help</li>
+        <li>Urgent same-day support</li>
+      </ul>
+      <a href="services.html" class="btn primary">Get Started</a>
+    </div>
+    <div class="card">
+      <h3>📄 Professional Digital Services</h3>
+      <ul>
+        <li>CV Writing</li>
+        <li>Cover Letters</li>
+        <li>Official Letters & Proposals</li>
+        <li>Simple Website Setup</li>
+      </ul>
+      <a href="digital-services.html" class="btn primary">Get Started</a>
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Need Help?</h2>
-<a href="https://wa.me/2349091156097" class="btn" target="_blank">Chat on WhatsApp</a>
+<section class="contact">
+  <h2>Need Help?</h2>
+  <p>Chat with us directly on WhatsApp for enquiries or custom requests.</p>
+  <a href="https://wa.me/2349091156097" class="btn primary" target="_blank">Chat on WhatsApp</a>
 </section>
 
 <footer>
-© 2026 StudyAid – Cinematic Edition
+  <p>StudyAid provides <strong>study assistance and explanations</strong> for learning purposes.</p>
+  <p>© 2026 StudyAid • <a href="mailto:obaromichael47@gmail.com">Email Support</a></p>
 </footer>
 
-<script>
-/* typing */
-const text="Premium WAEC • JAMB • NECO Assistance";
-let i=0;
-function type(){
-  if(i<text.length){
-    typing.innerHTML+=text.charAt(i);
-    i++;
-    setTimeout(type,60);
-  }
-}
-type();
-
-/* cinematic reveal */
-function reveal(){
-  document.querySelectorAll("section,header").forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight-100){
-      el.classList.add("active");
-    }
-  });
-}
-window.addEventListener("scroll",reveal);
-reveal();
-
-/* hover sound */
-const sound=document.getElementById("hoverSound");
-document.querySelectorAll(".btn,.card").forEach(el=>{
-  el.addEventListener("mouseenter",()=>{
-    sound.currentTime=0;
-    sound.play();
-  });
-});
-</script>
-
+<!-- External JS -->
+<script src="script.js"></script>
 </body>
 </html>
