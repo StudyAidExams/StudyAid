@@ -4,16 +4,16 @@ if(typingElement){
   const textToType = "Learn. Understand. Succeed."; // full text
   let index = 0;
   function typeEffect() {
+    typingElement.innerText = textToType.slice(0, index);
+    index++;
     if(index <= textToType.length){
-      typingElement.innerText = textToType.slice(0, index);
-      index++;
-      setTimeout(typeEffect, 100); // typing speed
+      setTimeout(typeEffect, 120); // adjust typing speed
     }
   }
   typeEffect();
 }
 
-/* ===================== SCROLL ANIMATIONS ===================== */
+/* ===================== CARD SCROLL ANIMATION ===================== */
 const cards = document.querySelectorAll('.card');
 window.addEventListener('scroll', () => {
   const triggerBottom = window.innerHeight * 0.85;
@@ -22,9 +22,6 @@ window.addEventListener('scroll', () => {
     if(cardTop < triggerBottom){
       card.style.opacity = 1;
       card.style.transform = "translateY(0)";
-    } else {
-      card.style.opacity = 0;
-      card.style.transform = "translateY(30px)";
     }
   });
 });
