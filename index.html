@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>StudyAid – Premium</title>
+<title>StudyAid – Cinematic</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2965189275511617" crossorigin="anonymous"></script>
 
 <style>
 *{box-sizing:border-box}
@@ -14,113 +12,122 @@ body{
   margin:0;
   font-family:Arial, sans-serif;
   color:#fff;
-  background:#05070d;
+  background:#02030a;
   overflow-x:hidden;
 }
 
-/* Floating particles background */
-canvas{
+/* moving gradient background */
+.bg{
   position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
+  inset:0;
+  z-index:-2;
+  background:linear-gradient(45deg,#02030a,#071f3a,#0a0f25,#001a2e);
+  background-size:400% 400%;
+  animation:bgMove 12s infinite linear;
+}
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-/* Hero */
-header{
-  height:90vh;
+/* cinematic sections */
+section,header{
+  min-height:90vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  padding:40px 20px;
   text-align:center;
-  background:linear-gradient(180deg,rgba(0,0,0,0.6),rgba(0,0,0,0.9));
+  opacity:0;
+  transform:translateY(60px) scale(.98);
+  transition:1.2s cubic-bezier(.16,1,.3,1);
 }
 
+section.active,header.active{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+/* hero */
 h1{
-  font-size:48px;
+  font-size:52px;
   margin:0;
-  letter-spacing:2px;
-  text-shadow:0 0 15px #0af;
+  text-shadow:0 0 25px #0ff;
 }
 
 .typing{
-  font-size:18px;
-  opacity:.9;
   margin-top:10px;
+  font-size:18px;
+  opacity:.85;
   height:24px;
 }
 
-/* Glass cards */
-section{
-  padding:60px 20px;
-  max-width:1000px;
-  margin:auto;
-}
-
+/* glass cards */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:25px;
+  max-width:1000px;
+  width:100%;
 }
 
 .card{
   background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:14px;
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:16px;
   padding:25px;
   transition:.4s;
-  box-shadow:0 0 20px rgba(0,255,255,.1);
+  box-shadow:0 0 25px rgba(0,255,255,.15);
 }
 
 .card:hover{
-  transform:translateY(-10px) scale(1.02);
-  box-shadow:0 0 35px rgba(0,255,255,.4);
+  transform:translateY(-12px) scale(1.03);
+  box-shadow:0 0 45px rgba(0,255,255,.6);
 }
 
-/* Neon button */
+/* neon button */
 .btn{
-  display:inline-block;
-  margin-top:15px;
-  padding:12px 22px;
-  border-radius:6px;
+  margin-top:20px;
+  padding:12px 26px;
+  border-radius:8px;
   background:#0af;
   color:#fff;
   text-decoration:none;
   font-weight:bold;
+  box-shadow:0 0 20px #0af;
   transition:.3s;
-  box-shadow:0 0 15px #0af;
 }
 
 .btn:hover{
-  background:#09f;
-  box-shadow:0 0 25px #0ff;
+  background:#08f;
+  box-shadow:0 0 35px #0ff;
 }
 
-/* Scroll animation */
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s;
+/* app style fade transition */
+.page{
+  animation:pageEnter .8s ease;
 }
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
+@keyframes pageEnter{
+  from{opacity:0; transform:scale(.98)}
+  to{opacity:1; transform:scale(1)}
 }
 
 footer{
   text-align:center;
   padding:30px;
-  background:#020409;
-  opacity:.8;
+  opacity:.7;
 }
 </style>
 </head>
 
-<body>
+<body class="page">
 
-<canvas id="particles"></canvas>
+<div class="bg"></div>
+
+<audio id="hoverSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_1b1c3d8d0e.mp3"></audio>
 
 <header>
 <h1>StudyAid</h1>
@@ -129,81 +136,72 @@ footer{
 </header>
 
 <section>
-<h2 class="reveal">How StudyAid Helps You</h2>
+<h2>How StudyAid Helps</h2>
 <div class="grid">
-<div class="card reveal">
+
+<div class="card">
 <h3>📘 Exam Explanations</h3>
-<p>Clear step-by-step breakdowns that make tough questions easy.</p>
+<p>Clear breakdowns that make hard questions simple.</p>
 </div>
 
-<div class="card reveal">
-<h3>⚡ Urgent Help</h3>
-<p>Fast same-day support when deadlines are close.</p>
+<div class="card">
+<h3>⚡ Urgent Support</h3>
+<p>Fast same-day help when deadlines hit.</p>
 </div>
 
-<div class="card reveal">
-<h3>🔒 Private & Secure</h3>
-<p>No account needed. Simple, direct, fast delivery.</p>
+<div class="card">
+<h3>🔒 Private Delivery</h3>
+<p>No account needed. Instant secure service.</p>
 </div>
+
 </div>
 </section>
 
 <section id="services">
-<h2 class="reveal">Our Services</h2>
+<h2>Services</h2>
 <div class="grid">
 
-<div class="card reveal">
+<div class="card">
 <h3>🎓 Student Help</h3>
-<ul>
-<li>WAEC / JAMB / NECO</li>
-<li>Past questions PDFs</li>
-<li>Homework help</li>
-<li>Urgent support</li>
-</ul>
+<p>WAEC • JAMB • NECO • PDFs • Homework</p>
 <a href="services.html" class="btn">Get Started</a>
 </div>
 
-<div class="card reveal">
+<div class="card">
 <h3>💼 Digital Services</h3>
-<ul>
-<li>CV Writing</li>
-<li>Cover Letters</li>
-<li>Official Proposals</li>
-<li>Website Setup</li>
-</ul>
+<p>CVs • Letters • Websites</p>
 <a href="digital-services.html" class="btn">Get Started</a>
 </div>
 
 </div>
 </section>
 
-<section class="reveal">
+<section>
 <h2>Need Help?</h2>
 <a href="https://wa.me/2349091156097" class="btn" target="_blank">Chat on WhatsApp</a>
 </section>
 
 <footer>
-© 2026 StudyAid – Premium Edition
+© 2026 StudyAid – Cinematic Edition
 </footer>
 
 <script>
-/* Typing animation */
-const text="WAEC • JAMB • NECO Premium Assistance";
+/* typing */
+const text="Premium WAEC • JAMB • NECO Assistance";
 let i=0;
 function type(){
   if(i<text.length){
-    document.getElementById("typing").innerHTML+=text.charAt(i);
+    typing.innerHTML+=text.charAt(i);
     i++;
     setTimeout(type,60);
   }
 }
 type();
 
-/* Scroll reveal */
+/* cinematic reveal */
 function reveal(){
-  document.querySelectorAll(".reveal").forEach(el=>{
-    const top=el.getBoundingClientRect().top;
-    if(top<window.innerHeight-80){
+  document.querySelectorAll("section,header").forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-100){
       el.classList.add("active");
     }
   });
@@ -211,35 +209,14 @@ function reveal(){
 window.addEventListener("scroll",reveal);
 reveal();
 
-/* Floating particles */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<80;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    vx:(Math.random()-0.5)*0.5,
-    vy:(Math.random()-0.5)*0.5
+/* hover sound */
+const sound=document.getElementById("hoverSound");
+document.querySelectorAll(".btn,.card").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{
+    sound.currentTime=0;
+    sound.play();
   });
-}
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="#0ff";
-  particles.forEach(p=>{
-    p.x+=p.vx;
-    p.y+=p.vy;
-    if(p.x<0||p.x>canvas.width)p.vx*=-1;
-    if(p.y<0||p.y>canvas.height)p.vy*=-1;
-    ctx.fillRect(p.x,p.y,2,2);
-  });
-  requestAnimationFrame(animate);
-}
-animate();
+});
 </script>
 
 </body>
