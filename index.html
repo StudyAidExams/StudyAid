@@ -9,71 +9,96 @@
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:linear-gradient(180deg,#eef3ff,#f4f6f8);
-  color:#222;
+  background:linear-gradient(135deg,#0f172a,#111827,#1f2937);
+  color:#e5e7eb;
 }
 
+/* HEADER */
 header{
-  background:#0a7cff;
-  color:#fff;
+  background:linear-gradient(90deg,#0a7cff,#00e5ff);
   padding:20px;
   display:flex;
   justify-content:space-between;
   flex-wrap:wrap;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
 }
 
 .logo-container{display:flex;align-items:center;gap:10px}
 .logo-container img{
-  width:50px;height:50px;border-radius:8px;background:#fff;padding:5px
+  width:50px;height:50px;border-radius:10px;background:#fff;padding:5px
 }
 
+header h1{margin:0}
+header p{margin:0;font-size:14px}
+
+/* BUTTON */
 .btn{
   padding:12px 22px;
   background:#fff;
   color:#0a7cff;
   font-weight:bold;
-  border-radius:6px;
+  border-radius:8px;
   text-decoration:none;
-  transition:.25s;
+  transition:.3s;
+  box-shadow:0 0 10px rgba(255,255,255,.4);
 }
-.btn:hover{transform:translateY(-3px)}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 20px rgba(255,255,255,.8);
+}
 
+/* SECTION */
 section{
-  padding:30px 20px;
-  max-width:900px;
+  padding:40px 20px;
+  max-width:1000px;
   margin:auto;
 }
 
+/* GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
 }
 
+/* CARD */
 .card{
-  background:#fff;
-  padding:20px;
-  border-radius:8px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.06);
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.15);
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  transform:translateY(20px);
+  opacity:0;
+  animation:fadeUp .8s forwards;
 }
 
+.card:nth-child(2){animation-delay:.2s}
+.card:nth-child(3){animation-delay:.4s}
+
+@keyframes fadeUp{
+  to{transform:translateY(0);opacity:1}
+}
+
+/* TYPING */
 .typing{
-  border-right:2px solid #000;
-  white-space:nowrap;
-  overflow:hidden;
+  border-right:2px solid #00e5ff;
+  display:inline;
   animation:blink .8s infinite;
 }
 
 @keyframes blink{
   0%,100%{border-color:transparent}
-  50%{border-color:#000}
+  50%{border-color:#00e5ff}
 }
 
+/* FOOTER */
 footer{
-  background:#222;
-  color:#ddd;
+  background:#020617;
   text-align:center;
   padding:20px;
+  color:#9ca3af;
 }
 </style>
 </head>
@@ -81,14 +106,14 @@ footer{
 <body>
 
 <header>
-  <div class="logo-container">
-    <img src="https://i.postimg.cc/m2SYspmr/IMG-20260119-174916-789.jpg">
-    <div>
-      <h1>StudyAid</h1>
-      <p>WAEC • JAMB • NECO Study Assistance</p>
-    </div>
-  </div>
-  <a href="#services" class="btn">View Services</a>
+<div class="logo-container">
+<img src="https://i.postimg.cc/m2SYspmr/IMG-20260119-174916-789.jpg">
+<div>
+<h1>StudyAid</h1>
+<p>WAEC • JAMB • NECO Study Assistance</p>
+</div>
+</div>
+<a href="#services" class="btn">View Services</a>
 </header>
 
 <section>
@@ -107,7 +132,7 @@ footer{
 
 <div class="card">
 <h3>🔒 No Registration</h3>
-<p class="typing" data-text="Upload your question and receive solutions via Email & WhatsApp."></p>
+<p class="typing" data-text="Upload your question and receive solutions via Email and WhatsApp."></p>
 </div>
 </div>
 </section>
@@ -117,23 +142,21 @@ footer{
 </footer>
 
 <script>
-const texts = document.querySelectorAll(".typing");
+const texts=document.querySelectorAll(".typing");
 
-function typeEffect(el, delay=0){
-  const text = el.getAttribute("data-text");
-  let i = 0;
+function typeEffect(el,delay){
+  const text=el.getAttribute("data-text");
+  let i=0;
   setTimeout(()=>{
-    const timer = setInterval(()=>{
-      el.textContent += text[i];
+    const timer=setInterval(()=>{
+      el.textContent+=text[i];
       i++;
       if(i>=text.length) clearInterval(timer);
-    },35);
+    },30);
   },delay);
 }
 
-texts.forEach((el,i)=>{
-  typeEffect(el, i*800); // stagger typing
-});
+texts.forEach((el,i)=>typeEffect(el,i*700));
 </script>
 
 </body>
